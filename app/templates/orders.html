@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}My Orders — SABBTCo{% endblock %}
+
+{% block content %}
+
+<section class="page-hero" style="padding:3rem 0">
+  <div class="container">
+    <span class="chip">Client Portal</span>
+    <h1>My Orders</h1>
+    <p>Track your sourcing and shipping progress in real time.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    {% if orders %}
+      <div class="orders-table">
+        <div class="orders-head">
+          <span>Order No.</span>
+          <span>Product</span>
+          <span>Qty</span>
+          <span>Status</span>
+          <span>Date</span>
+        </div>
+
+        {% for order in orders %}
+        <div class="orders-row">
+          <span><b>{{ order.order_number }}</b></span>
+          <span>{{ order.product_name }}</span>
+          <span>{{ order.quantity }}</span>
+
+          <span class="status {{ order.status|lower }}">
+            {{ order.status }}
+          </span>
+
+          <span>{{ order.created_at|date:"M d, Y" }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-orders">
+        <h2>No orders yet.</h2>
+        <p>Once you place an order, it will appear here with its current status.</p>
+        <a href="{% url 'quote' %}" class="btn btn-primary">Request a Quote →</a>
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+{% endblock %}

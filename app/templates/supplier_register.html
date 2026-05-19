@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Become a Supplier — SABBTCo.{% endblock %}
+
+{% block content %}
+
+<section class="page-hero">
+  <div class="container">
+    <span class="chip">Supplier Portal</span>
+    <h1>Become a <span class="accent">Verified Supplier</span></h1>
+    <p>Register your company details and start receiving business inquiries from international buyers.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="form-card">
+      <h2>Supplier Registration Form</h2>
+      <p class="muted">
+        Fill in the required details below. We will review and approve your supplier profile.
+      </p>
+
+      <form method="POST">
+        {% csrf_token %}
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Company Name</label>
+            <input type="text" name="company_name" placeholder="Enter company name" required>
+          </div>
+
+          <div class="form-group">
+            <label>Contact Person</label>
+            <input type="text" name="contact_person" placeholder="Enter full name" required>
+          </div>
+
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="example@gmail.com" required>
+          </div>
+
+          <div class="form-group">
+            <label>Phone / WhatsApp</label>
+            <input type="text" name="phone" placeholder="+86..." required>
+          </div>
+
+          <div class="form-group">
+            <label>Location (City / Province)</label>
+            <input type="text" name="location" placeholder="Shenzhen, Guangdong" required>
+          </div>
+
+          <div class="form-group">
+            <label>Business Category</label>
+            <input type="text" name="category" placeholder="Electronics, Furniture, Fashion..." required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Company Description</label>
+          <textarea name="description" placeholder="Tell us about your products and factory..." required></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Create Supplier Account →</button>
+          <a href="{% url 'index' %}" class="btn btn-outline">Cancel</a>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

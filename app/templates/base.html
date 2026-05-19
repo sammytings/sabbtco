@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>{% block title %}SABBTCo{% endblock %}</title>
+
+  <meta name="description" content="{% block description %}Shenzhen Autumn Breeze Business Trade Co. Ltd. Trusted sourcing, consolidation and shipping from China to Kenya and the world.{% endblock %}" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+</head>
+
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="container nav">
+    <a href="{% url 'index' %}" class="logo">
+      <div class="logo-mark">S</div>
+      <div class="logo-text">
+        <b>SABBTCo.</b><br>
+        <span>SHENZHEN AUTUMN BREEZE</span>
+      </div>
+    </a>
+
+    <button class="nav-toggle" aria-label="Menu">☰</button>
+
+    <nav class="nav-links">
+      <a href="{% url 'index' %}">Home</a>
+      <a href="{% url 'services' %}">Services</a>
+      <a href="{% url 'about' %}">About</a>
+      <a href="{% url 'quote' %}">Request Quote</a>
+      <a href="{% url 'orders' %}">Orders</a>
+
+<a href="#" class="notif-bell" title="Notifications">
+  🔔 <span class="notif-count">3</span>
+</a>
+  <a href="{% url 'supplier_register' %}" class="btn btn-outline">Become a Supplier</a>
+
+      <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== PAGE CONTENT ===== -->
+{% block content %}
+{% endblock %}
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="brand">
+      <b>SABBTCo.</b>
+      <p style="margin-top:.6rem">
+        Shenzhen Autumn Breeze Business Trade Co. Ltd — Building Global Partnership.
+      </p>
+      <div class="socials">
+        <a href="#">f</a>
+        <a href="#">ig</a>
+        <a href="#">yt</a>
+      </div>
+    </div>
+
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="{% url 'index' %}">Home</a></li>
+        <li><a href="{% url 'services' %}">Services</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'quote' %}">Request Quote</a></li>
+        <li><a href="{% url 'login' %}">Login</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Contact</h4>
+      <p class="contact-line">✉ shenzhenautumnbreeze@gmail.com</p>
+      <p class="contact-line">📞 +86 13 538 058 640</p>
+      <p class="contact-line">📞 +254 790 644 050</p>
+    </div>
+
+    <div>
+      <h4>Office</h4>
+      <p>
+        📍 3rd Floor, D20, ASEAN Building, Minzhi Avenue 690, Minzhi Street,
+        Longhua District, Shenzhen City, Guangdong Province.
+      </p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <span>© <span id="year"></span> SABBTCo. All rights reserved.</span>
+      <span>Building Global Partnership · China → World</span>
+    </div>
+  </div>
+</footer>
+
+<script src="{% static 'js/main.js' %}"></script>
+
+{% block extra_js %}
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}SABBTCo. — Sourcing & Shipping from China to the World{% endblock %}
+
+{% block content %}
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <img src="{% static 'img/hero-cargo.jpg' %}" alt="" class="hero-bg" />
+  <div class="container hero-inner">
+    <div>
+      <span class="chip">China → World</span>
+      <h1>Sourcing & Shipping,<span class="accent">made simple.</span></h1>
+      <p class="lead">
+        We are your trusted partner on the ground in Shenzhen — sourcing genuine suppliers,
+        verifying factories, consolidating cargo and shipping it safely to your doorstep.
+      </p>
+
+      <div class="hero-cta">
+        <a href="{% url 'quote' %}" class="btn btn-primary">Request a Quote →</a>
+        <a href="{% url 'services' %}" class="btn btn-outline">Our Services</a>
+      </div>
+
+      <div class="hero-stats">
+        <div><b>7+</b><span>Years Experience</span></div>
+        <div><b>500+</b><span>Shipments</span></div>
+        <div><b>100%</b><span>Verified Suppliers</span></div>
+      </div>
+    </div>
+    <div></div>
+  </div>
+</section>
+
+<!-- ===== TRUST STRIP ===== -->
+<section class="trust">
+  <div class="container trust-row">
+    <span><span class="dot"></span> Verified Factories</span>
+    <span><span class="dot"></span> Worldwide Shipping</span>
+    <span><span class="dot"></span> Secure Payments</span>
+    <span><span class="dot"></span> Sea & Air Freight</span>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="section">
+  <div class="container">
+    <div class="section-title">
+      <span class="chip">Our Services</span>
+      <h2>Everything you need, end-to-end.</h2>
+      <p>From the first inquiry to the last container, we handle the details.</p>
+    </div>
+
+    <div class="grid-4">
+      <div class="card"><div class="icon">📦</div><h3>Product Sourcing</h3><p>We locate the right manufacturers and negotiate the best factory prices on your behalf.</p></div>
+      <div class="card"><div class="icon">🛡️</div><h3>Supplier Verification</h3><p>On-the-ground company visits and quality checks before you commit a single dollar.</p></div>
+      <div class="card"><div class="icon">🚢</div><h3>Sea Freight</h3><p>Cost-effective LCL and FCL container shipping from major Chinese ports.</p></div>
+      <div class="card"><div class="icon">✈️</div><h3>Air Freight</h3><p>Fast, tracked air-cargo for time-sensitive orders and small parcels.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROCESS ===== -->
+<section class="section bg-soft">
+  <div class="container process-grid">
+    <div>
+      <span class="chip">The Sourcing Process</span>
+      <h2 style="margin-top:1rem">7 simple steps from inquiry to delivery.</h2>
+
+      <div class="steps">
+        <div class="step"><div class="step-num">01</div><div><h4>Initial Inquiry</h4><p>Share details of the item, including product name and photos.</p></div></div>
+        <div class="step"><div class="step-num">02</div><div><h4>Detailed Specifications</h4><p>Share elaborated details such as required quantities and sizes.</p></div></div>
+        <div class="step"><div class="step-num">03</div><div><h4>Negotiation & Consultation</h4><p>We negotiate locally with sellers and manufacturers. A non-refundable $50 sourcing fee applies. Feedback within 1–3 working days.</p></div></div>
+        <div class="step"><div class="step-num">04</div><div><h4>Agreement & Payment</h4><p>Once prices are agreed, payment is arranged via bank transfer or M-Pesa.</p></div></div>
+        <div class="step"><div class="step-num">05</div><div><h4>Purchase & Confirmation</h4><p>Goods are purchased and photos shared with the client for confirmation.</p></div></div>
+        <div class="step"><div class="step-num">06</div><div><h4>Shipping</h4><p>Arrangements are made according to client preference, by sea or air.</p></div></div>
+        <div class="step"><div class="step-num">07</div><div><h4>Collection</h4><p>Goods are loaded and a receipt is issued. Clients are notified to collect upon arrival.</p></div></div>
+      </div>
+    </div>
+
+    <div class="process-banners">
+      <img src="{% static 'img/banner-process.jpeg' %}" alt="Sourcing process poster" loading="lazy" />
+      <img src="{% static 'img/banner-shipping.jpeg' %}" alt="Shipping rate card poster" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIAL ===== -->
+<section class="testimonial">
+  <div class="quote-mark">“</div>
+  <blockquote>
+    SABBTCo. handled our first container shipment from Shenzhen to Mombasa flawlessly.
+    Honest pricing, fast feedback, and the goods arrived exactly as promised.
+  </blockquote>
+  <cite>— J. Mwangi, Importer · Nairobi</cite>
+</section>
+
+<!-- ===== CTA BANNER ===== -->
+<section class="cta-banner">
+  <div class="container cta-banner-inner">
+    <div>
+      <h2>Welcome — let's build a global partnership.</h2>
+      <p>Get a quote in 1–3 working days.</p>
+    </div>
+    <a href="{% url 'quote' %}" class="btn">Request Quote →</a>
+  </div>
+</section>
+
+{% endblock %}

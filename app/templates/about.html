@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About — SABBTCo{% endblock %}
+
+{% block content %}
+
+<!-- ===== PAGE HERO ===== -->
+<section class="page-hero">
+  <img src="{% static 'img/about-port.jpg' %}" alt="" class="bg" />
+  <div class="container">
+    <span class="chip">About SABBTCo.</span>
+    <h1>Building Global Partnership.</h1>
+    <p>
+      Shenzhen Autumn Breeze Business Trade Co. Ltd. (SABBTCo.) is a Shenzhen-based sourcing and shipping company
+      connecting buyers worldwide with verified Chinese manufacturers.
+    </p>
+
+    <div class="hero-actions">
+      <a href="{% url 'quote' %}" class="btn btn-primary">Start a Project →</a>
+      <a href="{% url 'services' %}" class="btn btn-outline">View Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT INTRO ===== -->
+<section class="section">
+  <div class="container about-grid">
+
+    <div class="about-img">
+      <img src="{% static 'img/about-port.jpg' %}" alt="Shipping port" loading="lazy" />
+    </div>
+
+    <div class="about-text">
+      <h2>Your eyes & feet on the ground in China.</h2>
+
+      <p>
+        Importing from China should not be a gamble. Our team lives and works in Shenzhen —
+        we visit factories in person, negotiate in Mandarin, inspect goods before they ship,
+        and consolidate cargo so you save on freight.
+      </p>
+
+      <p>
+        With offices in Shenzhen and clients across Kenya and beyond, we have made cross-border trade
+        simple, honest, and predictable for hundreds of buyers.
+      </p>
+
+      <div class="about-highlights">
+        <div class="highlight-box">
+          <h4>✔ Verified Factories</h4>
+          <p>We confirm supplier legitimacy before you pay.</p>
+        </div>
+
+        <div class="highlight-box">
+          <h4>✔ Transparent Pricing</h4>
+          <p>No hidden fees, clear breakdowns and receipts.</p>
+        </div>
+
+        <div class="highlight-box">
+          <h4>✔ Reliable Shipping</h4>
+          <p>Sea & air freight with tracking and support.</p>
+        </div>
+      </div>
+
+      <a href="{% url 'quote' %}" class="btn btn-primary" style="margin-top: 1.6rem;">
+        Request a Quote →
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== VALUES ===== -->
+<section class="section bg-soft">
+  <div class="container">
+    <div class="section-title">
+      <span class="chip">Our Purpose</span>
+      <h2>Mission, Vision & Values</h2>
+      <p>We focus on trust, long-term partnership, and consistent delivery.</p>
+    </div>
+
+    <div class="grid-3">
+      <div class="value-card">
+        <div class="v-icon">🎯</div>
+        <h3>Mission</h3>
+        <p>To make sourcing from China transparent, affordable, and worry-free for importers everywhere.</p>
+      </div>
+
+      <div class="value-card">
+        <div class="v-icon">👁️</div>
+        <h3>Vision</h3>
+        <p>To be the most trusted Sino-African trade partner — building bridges, not just shipping boxes.</p>
+      </div>
+
+      <div class="value-card">
+        <div class="v-icon">❤️</div>
+        <h3>Values</h3>
+        <p>Honesty in pricing. Care for every shipment. Long-term partnership over one-time profit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
