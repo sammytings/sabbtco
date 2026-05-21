@@ -1,22 +1,45 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Services & 2026 Rate Card — SABBTCo.{% endblock %}
+{% block title %}
+{% trans "Services & 2026 Rate Card — SABBTCo." %}
+{% endblock %}
 
 {% block content %}
 
 <!-- HERO -->
 <section class="page-hero">
   <div class="container">
-    <span class="chip">Our Services</span>
-    <h1>Sourcing & Shipping <span class="accent">Rate Card 2026</span></h1>
+
+    <span class="chip">
+      {% trans "Our Services" %}
+    </span>
+
+    <h1>
+      {% trans "Sourcing & Shipping" %}
+      <span class="accent">
+        {% trans "Rate Card 2026" %}
+      </span>
+    </h1>
+
     <p>
-      From China to Kenya and worldwide — transparent rates, professional handling, no surprises.
+      {% trans "From China to Kenya and worldwide — transparent rates, professional handling, no surprises." %}
     </p>
 
     <div class="hero-actions">
-      <a href="{% url 'quote' %}" class="btn btn-primary">Request a Quote →</a>
-      <a href="https://wa.me/254790644050" target="_blank" class="btn btn-outline">WhatsApp Us</a>
+
+      <a href="{% url 'quote' %}" class="btn btn-primary">
+        {% trans "Request a Quote" %} →
+      </a>
+
+      <a href="https://wa.me/254790644050"
+         target="_blank"
+         class="btn btn-outline">
+
+        {% trans "WhatsApp Us" %}
+      </a>
+
     </div>
   </div>
 </section>
@@ -26,92 +49,200 @@
   <div class="container">
 
     <div class="section-title">
-      <span class="chip">What We Do</span>
-      <h2>End-to-end services for importers.</h2>
+
+      <span class="chip">
+        {% trans "What We Do" %}
+      </span>
+
+      <h2>
+        {% trans "End-to-end services for importers." %}
+      </h2>
+
       <p>
-        We help you source products, verify suppliers, consolidate cargo and ship safely by air or sea.
+        {% trans "We help you source products, verify suppliers, consolidate cargo and ship safely by air or sea." %}
       </p>
+
     </div>
 
     <div class="grid-4">
 
+      <!-- SERVICE -->
       <div class="service-card">
         <div class="service-icon">🔍</div>
-        <h3>Sourcing & Consultation</h3>
-        <p>We help you identify trusted suppliers, negotiate pricing, and create a shipping plan.</p>
+
+        <h3>
+          {% trans "Sourcing & Consultation" %}
+        </h3>
+
+        <p>
+          {% trans "We help you identify trusted suppliers, negotiate pricing, and create a shipping plan." %}
+        </p>
+
         <div class="service-footer">
-          <span class="tag">Fast Feedback</span>
-          <span class="tag">Trusted</span>
+          <span class="tag">
+            {% trans "Fast Feedback" %}
+          </span>
+
+          <span class="tag">
+            {% trans "Trusted" %}
+          </span>
         </div>
       </div>
 
+      <!-- SERVICE -->
       <div class="service-card">
         <div class="service-icon">📦</div>
-        <h3>Consolidation & Shipping</h3>
-        <p>We consolidate goods from different suppliers and ship as one cost-efficient load.</p>
+
+        <h3>
+          {% trans "Consolidation & Shipping" %}
+        </h3>
+
+        <p>
+          {% trans "We consolidate goods from different suppliers and ship as one cost-efficient load." %}
+        </p>
+
         <div class="service-footer">
           <span class="tag">LCL / FCL</span>
-          <span class="tag">Affordable</span>
+
+          <span class="tag">
+            {% trans "Affordable" %}
+          </span>
         </div>
       </div>
 
+      <!-- SERVICE -->
       <div class="service-card">
         <div class="service-icon">🛡️</div>
-        <h3>Supplier Verification</h3>
-        <p>We visit suppliers physically, inspect the company and send proof (photos/videos).</p>
+
+        <h3>
+          {% trans "Supplier Verification" %}
+        </h3>
+
+        <p>
+          {% trans "We visit suppliers physically, inspect the company and send proof photos and videos." %}
+        </p>
+
         <div class="service-footer">
-          <span class="tag">Factory Visit</span>
-          <span class="tag">Secure</span>
+          <span class="tag">
+            {% trans "Factory Visit" %}
+          </span>
+
+          <span class="tag">
+            {% trans "Secure" %}
+          </span>
         </div>
       </div>
 
+      <!-- SERVICE -->
       <div class="service-card">
         <div class="service-icon">💴</div>
-        <h3>Supplier Payments</h3>
-        <p>We help you pay Chinese suppliers safely using verified local accounts.</p>
+
+        <h3>
+          {% trans "Supplier Payments" %}
+        </h3>
+
+        <p>
+          {% trans "We help you pay Chinese suppliers safely using verified local accounts." %}
+        </p>
+
         <div class="service-footer">
-          <span class="tag">3% Fee</span>
-          <span class="tag">Safe</span>
+          <span class="tag">3% {% trans "Fee" %}</span>
+
+          <span class="tag">
+            {% trans "Safe" %}
+          </span>
         </div>
       </div>
 
+      <!-- SERVICE -->
       <div class="service-card">
         <div class="service-icon">🚢</div>
-        <h3>Sea Freight (LCL / FCL)</h3>
-        <p>Cost-effective sea shipping through trusted cargo networks and port handling.</p>
+
+        <h3>
+          {% trans "Sea Freight (LCL / FCL)" %}
+        </h3>
+
+        <p>
+          {% trans "Cost-effective sea shipping through trusted cargo networks and port handling." %}
+        </p>
+
         <div class="service-footer">
-          <span class="tag">Bulk Cargo</span>
-          <span class="tag">Reliable</span>
+          <span class="tag">
+            {% trans "Bulk Cargo" %}
+          </span>
+
+          <span class="tag">
+            {% trans "Reliable" %}
+          </span>
         </div>
       </div>
 
+      <!-- SERVICE -->
       <div class="service-card">
         <div class="service-icon">✈️</div>
-        <h3>Air Freight</h3>
-        <p>Fast delivery for urgent goods, with tracking support and safe packaging.</p>
+
+        <h3>
+          {% trans "Air Freight" %}
+        </h3>
+
+        <p>
+          {% trans "Fast delivery for urgent goods, with tracking support and safe packaging." %}
+        </p>
+
         <div class="service-footer">
-          <span class="tag">Fast</span>
-          <span class="tag">Tracked</span>
+          <span class="tag">
+            {% trans "Fast" %}
+          </span>
+
+          <span class="tag">
+            {% trans "Tracked" %}
+          </span>
         </div>
       </div>
 
+      <!-- SERVICE -->
       <div class="service-card">
         <div class="service-icon">👥</div>
-        <h3>Trade Consultancy</h3>
-        <p>Advice on customs regulations, product classification and importing strategies.</p>
+
+        <h3>
+          {% trans "Trade Consultancy" %}
+        </h3>
+
+        <p>
+          {% trans "Advice on customs regulations, product classification and importing strategies." %}
+        </p>
+
         <div class="service-footer">
-          <span class="tag">Beginner Friendly</span>
-          <span class="tag">Professional</span>
+          <span class="tag">
+            {% trans "Beginner Friendly" %}
+          </span>
+
+          <span class="tag">
+            {% trans "Professional" %}
+          </span>
         </div>
       </div>
 
+      <!-- SERVICE -->
       <div class="service-card">
         <div class="service-icon">📄</div>
-        <h3>Documentation</h3>
-        <p>We assist with invoices, packing lists, AWB/BL and required shipping paperwork.</p>
+
+        <h3>
+          {% trans "Documentation" %}
+        </h3>
+
+        <p>
+          {% trans "We assist with invoices, packing lists, AWB/BL and required shipping paperwork." %}
+        </p>
+
         <div class="service-footer">
-          <span class="tag">Paperwork</span>
-          <span class="tag">Handled</span>
+          <span class="tag">
+            {% trans "Paperwork" %}
+          </span>
+
+          <span class="tag">
+            {% trans "Handled" %}
+          </span>
         </div>
       </div>
 
@@ -124,54 +255,106 @@
   <div class="container">
 
     <div class="section-title">
-      <span class="chip">2026 Rate Card</span>
-      <h2>Clear pricing, no confusion.</h2>
-      <p>Our service charges are transparent and communicated before any payment.</p>
+
+      <span class="chip">
+        {% trans "2026 Rate Card" %}
+      </span>
+
+      <h2>
+        {% trans "Clear pricing, no confusion." %}
+      </h2>
+
+      <p>
+        {% trans "Our service charges are transparent and communicated before any payment." %}
+      </p>
+
     </div>
 
     <div class="rate-box">
+
       <div class="rate-item">
         <div>
-          <h4>Sourcing & Shipping Consultation</h4>
-          <p>Non-refundable consultation fee for supplier sourcing and negotiation.</p>
+
+          <h4>
+            {% trans "Sourcing & Shipping Consultation" %}
+          </h4>
+
+          <p>
+            {% trans "Non-refundable consultation fee for supplier sourcing and negotiation." %}
+          </p>
+
         </div>
+
         <span class="rate-price">$50</span>
       </div>
 
       <div class="rate-item">
         <div>
-          <h4>Supplier Payments</h4>
-          <p>We assist with supplier payments securely through our accounts.</p>
+
+          <h4>
+            {% trans "Supplier Payments" %}
+          </h4>
+
+          <p>
+            {% trans "We assist with supplier payments securely through our accounts." %}
+          </p>
+
         </div>
+
         <span class="rate-price">3%</span>
       </div>
 
       <div class="rate-item">
         <div>
-          <h4>Service Fee</h4>
-          <p>Service charge applied to sourcing & handling logistics.</p>
+
+          <h4>
+            {% trans "Service Fee" %}
+          </h4>
+
+          <p>
+            {% trans "Service charge applied to sourcing and handling logistics." %}
+          </p>
+
         </div>
+
         <span class="rate-price">5%</span>
       </div>
 
       <div class="rate-item">
         <div>
-          <h4>Company Visit & Verification</h4>
-          <p>Factory visit and company verification report.</p>
+
+          <h4>
+            {% trans "Company Visit & Verification" %}
+          </h4>
+
+          <p>
+            {% trans "Factory visit and company verification report." %}
+          </p>
+
         </div>
-        <span class="rate-price">Negotiable</span>
+
+        <span class="rate-price">
+          {% trans "Negotiable" %}
+        </span>
       </div>
+
     </div>
 
     <div class="rate-note">
       <p>
-        <b>Note:</b> Consultation feedback is provided within <b>1–3 working days</b>.
-        For bulk shipping rates, request a custom quote.
+        <b>{% trans "Note:" %}</b>
+
+        {% trans "Consultation feedback is provided within" %}
+        <b>1–3 {% trans "working days" %}</b>.
+
+        {% trans "For bulk shipping rates, request a custom quote." %}
       </p>
     </div>
 
     <div class="center-btn">
-      <a href="{% url 'quote' %}" class="btn btn-primary">Request a Custom Quote →</a>
+      <a href="{% url 'quote' %}" class="btn btn-primary">
+        {% trans "Request a Custom Quote" %} →
+      </a>
     </div>
 
   </div>
@@ -180,11 +363,23 @@
 <!-- CTA -->
 <section class="cta-banner">
   <div class="container cta-banner-inner">
+
     <div>
-      <h2>Need help sourcing your next product?</h2>
-      <p>Send your inquiry today and we’ll guide you step-by-step.</p>
+
+      <h2>
+        {% trans "Need help sourcing your next product?" %}
+      </h2>
+
+      <p>
+        {% trans "Send your inquiry today and we’ll guide you step-by-step." %}
+      </p>
+
     </div>
-    <a href="{% url 'quote' %}" class="btn">Request Quote →</a>
+
+    <a href="{% url 'quote' %}" class="btn">
+      {% trans "Request Quote" %} →
+    </a>
+
   </div>
 </section>
 

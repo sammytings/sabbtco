@@ -848,3 +848,45 @@ img{max-width:100%;display:block}
   height:1px;
   background: rgba(255,255,255,0.15);
 }
+.hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* banner container */
+.hero-banners {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* each image */
+.hero-banner-img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+/* active image */
+.hero-banner-img.active {
+  opacity: 1;
+}
+
+/* dark overlay */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 1;
+}
+
+/* content above images */
+.hero-inner {
+  position: relative;
+  z-index: 2;
+}

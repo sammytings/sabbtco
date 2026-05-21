@@ -61,16 +61,18 @@ AUTHENTICATION_BACKENDS = [
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+
+    "django.middleware.locale.LocaleMiddleware",  # must be here
+
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
 ]
-
 ROOT_URLCONF = 'project.urls'
 
 TEMPLATES = [
@@ -124,7 +126,23 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+
+from django.utils.translation import gettext_lazy as _
+
+LANGUAGE_CODE = 'en'
+
+USE_I18N = True
+
+LANGUAGES = [
+    ('en', _('English')),
+    ('sw', _('Swahili')),
+    ('de', _('German')),
+    ('zh-hans', _('Chinese')),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / "locale",
+]
 
 TIME_ZONE = 'UTC'
 
@@ -148,3 +166,8 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 CLIENT_ID =  '23513753545972fdfhnf4lvablkd6ea8o99u4n5f1td5'
 CLIENT_SECRET = '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'
+
+import os
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"

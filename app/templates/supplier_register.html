@@ -1,73 +1,156 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Become a Supplier — SABBTCo.{% endblock %}
+{% block title %}
+{% trans "Become a Supplier — SABBTCo." %}
+{% endblock %}
 
 {% block content %}
 
+<!-- HERO -->
 <section class="page-hero">
   <div class="container">
-    <span class="chip">Supplier Portal</span>
-    <h1>Become a <span class="accent">Verified Supplier</span></h1>
-    <p>Register your company details and start receiving business inquiries from international buyers.</p>
+
+    <span class="chip">
+      {% trans "Supplier Portal" %}
+    </span>
+
+    <h1>
+      {% trans "Become a" %}
+      <span class="accent">
+        {% trans "Verified Supplier" %}
+      </span>
+    </h1>
+
+    <p>
+      {% trans "Register your company details and start receiving business inquiries from international buyers." %}
+    </p>
+
   </div>
 </section>
 
+<!-- FORM SECTION -->
 <section class="section">
   <div class="container">
 
     <div class="form-card">
-      <h2>Supplier Registration Form</h2>
+
+      <h2>
+        {% trans "Supplier Registration Form" %}
+      </h2>
+
       <p class="muted">
-        Fill in the required details below. We will review and approve your supplier profile.
+        {% trans "Fill in the required details below. We will review and approve your supplier profile." %}
       </p>
 
       <form method="POST">
         {% csrf_token %}
 
         <div class="form-grid">
+
+          <!-- COMPANY NAME -->
           <div class="form-group">
-            <label>Company Name</label>
-            <input type="text" name="company_name" placeholder="Enter company name" required>
+            <label>
+              {% trans "Company Name" %}
+            </label>
+
+            <input type="text"
+                   name="company_name"
+                   placeholder="{% trans 'Enter company name' %}"
+                   required>
           </div>
 
+          <!-- CONTACT PERSON -->
           <div class="form-group">
-            <label>Contact Person</label>
-            <input type="text" name="contact_person" placeholder="Enter full name" required>
+            <label>
+              {% trans "Contact Person" %}
+            </label>
+
+            <input type="text"
+                   name="contact_person"
+                   placeholder="{% trans 'Enter full name' %}"
+                   required>
           </div>
 
+          <!-- EMAIL -->
           <div class="form-group">
-            <label>Email Address</label>
-            <input type="email" name="email" placeholder="example@gmail.com" required>
+            <label>
+              {% trans "Email Address" %}
+            </label>
+
+            <input type="email"
+                   name="email"
+                   placeholder="example@gmail.com"
+                   required>
           </div>
 
+          <!-- PHONE -->
           <div class="form-group">
-            <label>Phone / WhatsApp</label>
-            <input type="text" name="phone" placeholder="+86..." required>
+            <label>
+              {% trans "Phone / WhatsApp" %}
+            </label>
+
+            <input type="text"
+                   name="phone"
+                   placeholder="+86..."
+                   required>
           </div>
 
+          <!-- LOCATION -->
           <div class="form-group">
-            <label>Location (City / Province)</label>
-            <input type="text" name="location" placeholder="Shenzhen, Guangdong" required>
+            <label>
+              {% trans "Location (City / Province)" %}
+            </label>
+
+            <input type="text"
+                   name="location"
+                   placeholder="{% trans 'Shenzhen, Guangdong' %}"
+                   required>
           </div>
 
+          <!-- CATEGORY -->
           <div class="form-group">
-            <label>Business Category</label>
-            <input type="text" name="category" placeholder="Electronics, Furniture, Fashion..." required>
+            <label>
+              {% trans "Business Category" %}
+            </label>
+
+            <input type="text"
+                   name="category"
+                   placeholder="{% trans 'Electronics, Furniture, Fashion...' %}"
+                   required>
           </div>
+
         </div>
 
+        <!-- DESCRIPTION -->
         <div class="form-group">
-          <label>Company Description</label>
-          <textarea name="description" placeholder="Tell us about your products and factory..." required></textarea>
+
+          <label>
+            {% trans "Company Description" %}
+          </label>
+
+          <textarea name="description"
+                    placeholder="{% trans 'Tell us about your products and factory...' %}"
+                    required></textarea>
+
         </div>
 
+        <!-- BUTTONS -->
         <div class="form-actions">
-          <button type="submit" class="btn btn-primary">Create Supplier Account →</button>
-          <a href="{% url 'index' %}" class="btn btn-outline">Cancel</a>
+
+          <button type="submit" class="btn btn-primary">
+            {% trans "Create Supplier Account" %} →
+          </button>
+
+          <a href="{% url 'index' %}" class="btn btn-outline">
+            {% trans "Cancel" %}
+          </a>
+
         </div>
 
       </form>
+
     </div>
 
   </div>

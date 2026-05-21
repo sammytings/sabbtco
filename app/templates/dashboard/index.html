@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+Dashboard — SABBTCo.
+{% endblock %}
+
+{% block content %}
+
+<section class="section bg-soft">
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:2rem;">
+
+      <div>
+        <span class="chip">
+          {% trans "Admin Dashboard" %}
+        </span>
+
+        <h1 style="margin-top:1rem">
+          {% trans "Orders Management" %}
+        </h1>
+
+        <p class="muted" style="margin-top:.5rem">
+          {% trans "Track customer orders, shipping progress and activity." %}
+        </p>
+      </div>
+
+      <div class="notif-bell">
+        🔔
+        <span class="notif-count">
+          {{ pending_orders }}
+        </span>
+      </div>
+
+    </div>
+
+    <!-- STATS -->
+    <div class="grid-4" style="margin-bottom:2rem;">
+
+      <div class="card">
+        <div class="icon">📦</div>
+        <h3>{{ total_orders }}</h3>
+        <p>{% trans "Total Orders" %}</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">⏳</div>
+        <h3>{{ pending_orders }}</h3>
+        <p>{% trans "Pending Orders" %}</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🚢</div>
+        <h3>{{ shipped_orders }}</h3>
+        <p>{% trans "Shipped Orders" %}</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">✅</div>
+        <h3>{{ delivered_orders }}</h3>
+        <p>{% trans "Delivered Orders" %}</p>
+      </div>
+
+    </div>
+
+    <!-- ORDERS TABLE -->
+    {% if orders %}
+
+    <div class="orders-table">
+
+      <div class="orders-head">
+        <div>{% trans "Order ID" %}</div>
+        <div>{% trans "Customer" %}</div>
+        <div>{% trans "Qty" %}</div>
+        <div>{% trans "Status" %}</div>
+        <div>{% trans "Date" %}</div>
+      </div>
+
+      {% for order in orders %}
+      <div class="orders-row">
+
+        <div>
+          <strong style="color:var(--brand-red)">
+            {{ order.order_id }}
+          </strong>
+        </div>
+
+        <div>
+          <strong>{{ order.full_name }}</strong>
+          <br>
+          <small class="muted">
+            {{ order.product_name }}
+          </small>
+        </div>
+
+        <div>
+          {{ order.quantity }}
+        </div>
+
+        <div>
+          <span class="status {{ order.status }}">
+            {{ order.status|title }}
+          </span>
+        </div>
+
+        <div>
+          {{ order.created_at|date:"M d, Y" }}
+        </div>
+
+      </div>
+      {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-orders">
+
+      <h3>
+        {% trans "No orders yet" %}
+      </h3>
+
+      <p class="muted" style="margin-top:.5rem">
+        {% trans "Orders submitted by customers will appear here." %}
+      </p>
+
+    </div>
+
+    {% endif %}
+
+  </div>
+
+</section>
+
+{% endblock %}

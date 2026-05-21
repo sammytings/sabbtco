@@ -1,88 +1,154 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
+{% load socialaccount %}
 
-{% block title %}Login — SABBTCo Client Portal{% endblock %}
+{% block title %}
+{% trans "Login — SABBTCo Client Portal" %}
+{% endblock %}
 
 {% block content %}
-{% load socialaccount %}
 
 <section class="section">
   <div class="container login-grid">
 
     <!-- LEFT SIDE -->
     <div>
-      <span class="chip">Client Portal</span>
+
+      <span class="chip">
+        {% trans "Client Portal" %}
+      </span>
 
       <h1 style="margin-top:1rem">
-        Welcome back.<br>
-        <span class="accent">Let's ship.</span>
+        {% trans "Welcome back." %}<br>
+        <span class="accent">
+          {% trans "Let's ship." %}
+        </span>
       </h1>
 
       <p style="margin-top:1rem;color:var(--muted-fg);max-width:420px">
-        Sign in to track your shipments, view quotes, manage invoices, and chat with your dedicated SABBTCo. sourcing agent.
+        {% trans "Sign in to track your shipments, view quotes, manage invoices, and chat with your dedicated SABBTCo. sourcing agent." %}
       </p>
 
       <ul class="login-benefits">
-        <li>✓ Real-time shipment tracking</li>
-        <li>✓ Sourcing requests history</li>
-        <li>✓ Secure document storage</li>
+        <li>
+          ✓ {% trans "Real-time shipment tracking" %}
+        </li>
+
+        <li>
+          ✓ {% trans "Sourcing requests history" %}
+        </li>
+
+        <li>
+          ✓ {% trans "Secure document storage" %}
+        </li>
       </ul>
+
     </div>
 
     <!-- RIGHT SIDE LOGIN FORM -->
     <div class="form-card">
 
-      <h2 class="form-title">Sign In</h2>
-      <p class="form-subtitle">Enter your credentials to continue.</p>
+      <h2 class="form-title">
+        {% trans "Sign In" %}
+      </h2>
 
-      <!-- Django Messages -->
+      <p class="form-subtitle">
+        {% trans "Enter your credentials to continue." %}
+      </p>
+
+      <!-- DJANGO MESSAGES -->
       {% if messages %}
         <div class="messages">
+
           {% for message in messages %}
-            <div class="alert {{ message.tags }}">{{ message }}</div>
+            <div class="alert {{ message.tags }}">
+              {{ message }}
+            </div>
           {% endfor %}
+
         </div>
       {% endif %}
 
+      <!-- LOGIN FORM -->
       <form method="POST" action="">
         {% csrf_token %}
 
         <div class="field">
-          <label>Username</label>
-          <input type="text" name="username" placeholder="Enter username" required>
+
+          <label>
+            {% trans "Username" %}
+          </label>
+
+          <input type="text"
+                 name="username"
+                 placeholder="{% trans 'Enter username' %}"
+                 required>
+
         </div>
 
         <div class="field">
-          <label>Password</label>
-          <input type="password" name="password" placeholder="Enter password" required>
+
+          <label>
+            {% trans "Password" %}
+          </label>
+
+          <input type="password"
+                 name="password"
+                 placeholder="{% trans 'Enter password' %}"
+                 required>
+
         </div>
 
         <div class="form-row">
+
           <label class="remember">
             <input type="checkbox" name="remember">
-            Remember me
+
+            {% trans "Remember me" %}
           </label>
 
-          <a href="#" class="forgot-link">Forgot password?</a>
+          <a href="#" class="forgot-link">
+            {% trans "Forgot password?" %}
+          </a>
+
         </div>
 
-        <button type="submit" class="btn btn-primary btn-block">
-          Sign In
-        </button>
-        <a href="{% provider_login_url 'google' %}" class="btn btn-google btn-block">
-  <img src="https://www.svgrepo.com/show/475656/google-color.svg"
-       alt="Google" style="width:18px;height:18px;margin-right:10px;">
-  Continue with Google
-</a>
+        <button type="submit"
+                class="btn btn-primary btn-block">
 
-<div class="divider">
-  <span>or</span>
-</div>
+          {% trans "Sign In" %}
+
+        </button>
+
+        {% comment %}
+        <a href="{% provider_login_url 'google' %}"
+           class="btn btn-google btn-block">
+
+          <img src="https://www.svgrepo.com/show/475656/google-color.svg"
+               alt="Google"
+               style="width:18px;height:18px;margin-right:10px;">
+
+          {% trans "Continue with Google" %}
+        </a>
+        {% endcomment %}
+
+        <div class="divider">
+          <span>
+            {% trans "or" %}
+          </span>
+        </div>
 
         <p class="form-footer">
-          Don’t have an account?
-          <a href="#" class="register-link">Register</a>
+
+          {% trans "Don’t have an account?" %}
+
+          <a href="#" class="register-link">
+            {% trans "Register" %}
+          </a>
+
         </p>
+
       </form>
 
     </div>
