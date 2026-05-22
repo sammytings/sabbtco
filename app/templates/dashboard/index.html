@@ -1,138 +1,526 @@
-{% extends "base.html" %}
-{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %}
-Dashboard — SABBTCo.
-{% endblock %}
+<head>
 
-{% block content %}
+    <meta charset="UTF-8">
 
-<section class="section bg-soft">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-  <div class="container">
+    <title>
+        SABBTCo. Admin Dashboard
+    </title>
 
-    <!-- HEADER -->
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:2rem;">
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
 
-      <div>
-        <span class="chip">
-          {% trans "Admin Dashboard" %}
-        </span>
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
 
-        <h1 style="margin-top:1rem">
-          {% trans "Orders Management" %}
-        </h1>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap"
+          rel="stylesheet">
 
-        <p class="muted" style="margin-top:.5rem">
-          {% trans "Track customer orders, shipping progress and activity." %}
-        </p>
-      </div>
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-      <div class="notif-bell">
-        🔔
-        <span class="notif-count">
-          {{ pending_orders }}
-        </span>
-      </div>
+    <!-- CSS -->
+    <link rel="stylesheet"
+          href="{% static 'css/dashboard.css' %}">
 
-    </div>
+</head>
 
-    <!-- STATS -->
-    <div class="grid-4" style="margin-bottom:2rem;">
+<body>
 
-      <div class="card">
-        <div class="icon">📦</div>
-        <h3>{{ total_orders }}</h3>
-        <p>{% trans "Total Orders" %}</p>
-      </div>
+<!-- ================= MOBILE TOPBAR ================= -->
+<div class="mobile-topbar">
 
-      <div class="card">
-        <div class="icon">⏳</div>
-        <h3>{{ pending_orders }}</h3>
-        <p>{% trans "Pending Orders" %}</p>
-      </div>
+    <button class="menu-toggle"
+            id="menuToggle">
 
-      <div class="card">
-        <div class="icon">🚢</div>
-        <h3>{{ shipped_orders }}</h3>
-        <p>{% trans "Shipped Orders" %}</p>
-      </div>
+        <span></span>
+        <span></span>
+        <span></span>
 
-      <div class="card">
-        <div class="icon">✅</div>
-        <h3>{{ delivered_orders }}</h3>
-        <p>{% trans "Delivered Orders" %}</p>
-      </div>
+    </button>
 
-    </div>
+    <h2>
+        SABBTCo.
+    </h2>
 
-    <!-- ORDERS TABLE -->
-    {% if orders %}
+</div>
 
-    <div class="orders-table">
+<!-- ================= OVERLAY ================= -->
+<div class="sidebar-overlay"
+     id="sidebarOverlay"></div>
 
-      <div class="orders-head">
-        <div>{% trans "Order ID" %}</div>
-        <div>{% trans "Customer" %}</div>
-        <div>{% trans "Qty" %}</div>
-        <div>{% trans "Status" %}</div>
-        <div>{% trans "Date" %}</div>
-      </div>
+<!-- ================= DASHBOARD LAYOUT ================= -->
+<div class="dashboard-layout">
 
-      {% for order in orders %}
-      <div class="orders-row">
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar"
+           id="sidebar">
 
-        <div>
-          <strong style="color:var(--brand-red)">
-            {{ order.order_id }}
-          </strong>
+        <div class="sidebar-logo">
+
+            <div class="logo-box">
+                S
+            </div>
+
+            <div>
+
+                <h2>
+                    SABBTCo.
+                </h2>
+
+                <span>
+                    Admin Dashboard
+                </span>
+
+            </div>
+
         </div>
 
-        <div>
-          <strong>{{ order.full_name }}</strong>
-          <br>
-          <small class="muted">
-            {{ order.product_name }}
-          </small>
+        <nav class="sidebar-nav">
+
+            <a href="#"
+               class="active">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+            <a href="#">
+
+                <i class="fa-solid fa-box"></i>
+
+                <span>
+                    Orders
+                </span>
+
+            </a>
+
+            <a href="#">
+
+                <i class="fa-solid fa-ship"></i>
+
+                <span>
+                    Shipments
+                </span>
+
+            </a>
+
+            <a href="#">
+
+                <i class="fa-solid fa-industry"></i>
+
+                <span>
+                    Suppliers
+                </span>
+
+            </a>
+
+            <a href="#">
+
+                <i class="fa-solid fa-users"></i>
+
+                <span>
+                    Customers
+                </span>
+
+            </a>
+
+            <a href="#">
+
+                <i class="fa-solid fa-credit-card"></i>
+
+                <span>
+                    Payments
+                </span>
+
+            </a>
+
+            <a href="#">
+
+                <i class="fa-solid fa-chart-pie"></i>
+
+                <span>
+                    Reports
+                </span>
+
+            </a>
+
+            <a href="#">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>
+                    Settings
+                </span>
+
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="main-content">
+
+        <!-- ================= TOPBAR ================= -->
+        <div class="topbar">
+
+            <div>
+
+                <h1>
+                    Dashboard
+                </h1>
+
+                <p>
+                    Welcome back, Admin
+                </p>
+
+            </div>
+
+            <div class="topbar-right">
+
+                <button class="notification-btn">
+
+                    <i class="fa-regular fa-bell"></i>
+
+                    <span>
+                        3
+                    </span>
+
+                </button>
+
+                <div class="admin-profile">
+
+                    <img src="https://i.pravatar.cc/100"
+                         alt="Admin">
+
+                    <div>
+
+                        <h4>
+                            Admin User
+                        </h4>
+
+                        <small>
+                            Super Admin
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <div>
-          {{ order.quantity }}
+        <!-- ================= STATS ================= -->
+        <div class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-icon red">
+
+                    <i class="fa-solid fa-box"></i>
+
+                </div>
+
+                <div>
+
+                    <h3>
+                        1,245
+                    </h3>
+
+                    <p>
+                        Total Orders
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+
+                    <i class="fa-solid fa-ship"></i>
+
+                </div>
+
+                <div>
+
+                    <h3>
+                        328
+                    </h3>
+
+                    <p>
+                        Shipments
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="stat-card">
+
+                <div class="stat-icon yellow">
+
+                    <i class="fa-solid fa-users"></i>
+
+                </div>
+
+                <div>
+
+                    <h3>
+                        864
+                    </h3>
+
+                    <p>
+                        Customers
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+
+                    <i class="fa-solid fa-dollar-sign"></i>
+
+                </div>
+
+                <div>
+
+                    <h3>
+                        $48,200
+                    </h3>
+
+                    <p>
+                        Revenue
+                    </p>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <div>
-          <span class="status {{ order.status }}">
-            {{ order.status|title }}
-          </span>
+        <!-- ================= CONTENT GRID ================= -->
+        <div class="dashboard-grid">
+
+            <!-- RECENT ORDERS -->
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <h3>
+                        Recent Orders
+                    </h3>
+
+                    <a href="#">
+                        View All
+                    </a>
+
+                </div>
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Order ID
+                                </th>
+
+                                <th>
+                                    Client
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Amount
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>
+                                    #SBT-1001
+                                </td>
+
+                                <td>
+                                    James Mwangi
+                                </td>
+
+                                <td>
+                                    <span class="status shipped">
+                                        Shipped
+                                    </span>
+                                </td>
+
+                                <td>
+                                    $1,250
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    #SBT-1002
+                                </td>
+
+                                <td>
+                                    Sarah Kim
+                                </td>
+
+                                <td>
+                                    <span class="status pending">
+                                        Pending
+                                    </span>
+                                </td>
+
+                                <td>
+                                    $760
+                                </td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>
+                                    #SBT-1003
+                                </td>
+
+                                <td>
+                                    Ali Hassan
+                                </td>
+
+                                <td>
+                                    <span class="status delivered">
+                                        Delivered
+                                    </span>
+                                </td>
+
+                                <td>
+                                    $2,410
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            <!-- QUICK ACTIONS -->
+            <div class="dashboard-card">
+
+                <div class="card-header">
+
+                    <h3>
+                        Quick Actions
+                    </h3>
+
+                </div>
+
+                <div class="quick-actions">
+
+                    <button>
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Add Shipment
+
+                    </button>
+
+                    <button>
+
+                        <i class="fa-solid fa-user-plus"></i>
+
+                        New Supplier
+
+                    </button>
+
+                    <button>
+
+                        <i class="fa-solid fa-file-invoice"></i>
+
+                        Generate Invoice
+
+                    </button>
+
+                    <button>
+
+                        <i class="fa-solid fa-chart-column"></i>
+
+                        View Reports
+
+                    </button>
+
+                </div>
+
+            </div>
+
         </div>
 
-        <div>
-          {{ order.created_at|date:"M d, Y" }}
-        </div>
+    </main>
 
-      </div>
-      {% endfor %}
+</div>
 
-    </div>
+<!-- ================= JS ================= -->
+<script>
 
-    {% else %}
+const menuToggle = document.getElementById("menuToggle");
 
-    <div class="empty-orders">
+const sidebar = document.getElementById("sidebar");
 
-      <h3>
-        {% trans "No orders yet" %}
-      </h3>
+const overlay = document.getElementById("sidebarOverlay");
 
-      <p class="muted" style="margin-top:.5rem">
-        {% trans "Orders submitted by customers will appear here." %}
-      </p>
+menuToggle.addEventListener("click", () => {
 
-    </div>
+    sidebar.classList.toggle("show");
 
-    {% endif %}
+    overlay.classList.toggle("show");
 
-  </div>
+});
 
-</section>
+overlay.addEventListener("click", () => {
 
-{% endblock %}
+    sidebar.classList.remove("show");
+
+    overlay.classList.remove("show");
+
+});
+
+</script>
+
+</body>
+</html>
