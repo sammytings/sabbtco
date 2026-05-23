@@ -133,7 +133,9 @@
                 <i class="fa-solid fa-users"></i>
 
                 <span>
-                    Customers
+                    <a href="{% url 'customers' %}">
+    Customers
+</a>
                 </span>
 
             </a>
@@ -363,76 +365,56 @@
                             </tr>
 
                         </thead>
-
                         <tbody>
 
-                            <tr>
+{% for order in orders %}
 
-                                <td>
-                                    #SBT-1001
-                                </td>
+<tr>
+    <td>
+    <a href="{% url 'order_detail' order.id %}">
+        #{{ order.order_id }}
+    </a>
+</td>
 
-                                <td>
-                                    James Mwangi
-                                </td>
+    <td>
+        {{ order.user.username }}
+    </td>
 
-                                <td>
-                                    <span class="status shipped">
-                                        Shipped
-                                    </span>
-                                </td>
+    <td>
+        {{ order.product_name }}
+    </td>
 
-                                <td>
-                                    $1,250
-                                </td>
+    <td>
+        ${{ order.amount }}
+    </td>
 
-                            </tr>
+    <td>
 
-                            <tr>
+        <span class="status {{ order.status }}">
 
-                                <td>
-                                    #SBT-1002
-                                </td>
+            {{ order.status }}
 
-                                <td>
-                                    Sarah Kim
-                                </td>
+        </span>
 
-                                <td>
-                                    <span class="status pending">
-                                        Pending
-                                    </span>
-                                </td>
+    </td>
 
-                                <td>
-                                    $760
-                                </td>
+    <td>
 
-                            </tr>
+        <a href="{% url 'update_order' order.id %}"
+           class="action-btn">
 
-                            <tr>
+            Update
 
-                                <td>
-                                    #SBT-1003
-                                </td>
+        </a>
 
-                                <td>
-                                    Ali Hassan
-                                </td>
+    </td>
 
-                                <td>
-                                    <span class="status delivered">
-                                        Delivered
-                                    </span>
-                                </td>
+</tr>
 
-                                <td>
-                                    $2,410
-                                </td>
+{% endfor %}
 
-                            </tr>
+</tbody>
 
-                        </tbody>
 
                     </table>
 

@@ -1,26 +1,29 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.crypto import get_random_string
+from django.db import models
+from django.contrib.auth.models import User
+import random
 
 
-# =========================
-# ORDER MODEL
-# =========================
 class Order(models.Model):
 
     STATUS_CHOICES = [
+
         ("pending", "Pending"),
         ("processing", "Processing"),
-        ("shipped", "Shipped"),
+        ("paid", "Paid"),
+        ("shipping", "Shipping"),
+        ("arrived", "Arrived"),
         ("delivered", "Delivered"),
         ("cancelled", "Cancelled"),
+
     ]
 
     user = models.ForeignKey(
         User,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True
+        on_delete=models.CASCADE,
+        related_name="orders"
     )
 
     order_id = models.CharField(
@@ -30,18 +33,27 @@ class Order(models.Model):
     )
 
     full_name = models.CharField(max_length=255)
-    phone = models.CharField(max_length=50)
+
     email = models.EmailField()
 
-    address = models.TextField(blank=True)
+    phone = models.CharField(max_length=20)
+
+    address = models.TextField()
+
+    notes = models.TextField(
+        blank=True,
+        null=True
+    )
 
     product_name = models.CharField(max_length=255)
 
     quantity = models.PositiveIntegerField(default=1)
 
-    destination = models.CharField(max_length=255)
-
-    notes = models.TextField(blank=True, null=True)
+    amount = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0
+    )
 
     status = models.CharField(
         max_length=20,
@@ -49,19 +61,27 @@ class Order(models.Model):
         default="pending"
     )
 
+    tracking_number = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True
+    )
+
     created_at = models.DateTimeField(auto_now_add=True)
+
+    updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
 
         if not self.order_id:
-            random_code = get_random_string(6).upper()
-            self.order_id = f"DMK-{random_code}"
+
+            self.order_id = f"SBT-{random.randint(100000,999999)}"
 
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.order_id} - {self.full_name}"
 
+        return self.order_id
 
 # =========================
 # BANNER MODEL
@@ -80,3 +100,30 @@ class Banner(models.Model):
 
     def __str__(self):
         return self.title or f"Banner {self.id}"
+    def save(self, *args, **kwargs):
+
+        if not self.order_id:
+
+            self.order_id = f"DMK-{random.randint(100000,999999)}"
+
+            super().save(*args, **kwargs)
+
+class OrderTimeline(models.Model):
+
+    order = models.ForeignKey(
+        Order,
+        on_delete=models.CASCADE,
+        related_name="timeline"
+    )
+
+    title = models.CharField(max_length=255)
+
+    description = models.TextField(blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.order.order_id} - {self.title}"

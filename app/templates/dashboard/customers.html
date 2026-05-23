@@ -1,0 +1,178 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Customers | SABBTCo Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/global.css' %}">
+
+    <link rel="stylesheet"
+          href="{% static 'css/dashboard.css' %}">
+
+    <!-- REMIX ICONS -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="sidebar-top">
+
+            <div class="brand">
+
+                <div class="brand-logo">
+                    S
+                </div>
+
+                <div>
+
+                    <h2>SABBTCo.</h2>
+
+                    <span>Admin Dashboard</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <nav class="sidebar-menu">
+
+            <a href="{% url 'dashboard' %}">
+                <i class="ri-dashboard-line"></i>
+                Dashboard
+            </a>
+
+            <a href="{% url 'customers' %}"
+               class="active">
+
+                <i class="ri-group-line"></i>
+                Customers
+            </a>
+
+            <a href="#">
+                <i class="ri-truck-line"></i>
+                Shipments
+            </a>
+
+            <a href="#">
+                <i class="ri-settings-3-line"></i>
+                Settings
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div>
+
+                <h1>Customers</h1>
+
+                <p>Manage all customer accounts</p>
+
+            </div>
+
+        </header>
+
+        <!-- TABLE -->
+        <section class="dashboard-section">
+
+            <div class="table-card">
+
+                <div class="table-header">
+
+                    <h3>Customer List</h3>
+
+                </div>
+
+                <div class="table-responsive">
+
+                    <table>
+
+                        <thead>
+
+                        <tr>
+
+                            <th>Name</th>
+
+                            <th>Email</th>
+
+                            <th>Orders</th>
+
+                            <th>Date Joined</th>
+
+                        </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        {% for customer in customers %}
+
+                        <tr>
+
+                            <td>
+
+                                {{ customer.get_full_name|default:customer.username }}
+
+                            </td>
+
+                            <td>
+
+                                {{ customer.email }}
+
+                            </td>
+
+                            <td>
+
+                                {{ customer.orders.count }}
+
+                            </td>
+
+                            <td>
+
+                                {{ customer.date_joined|date:"M d, Y" }}
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>

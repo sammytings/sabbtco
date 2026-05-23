@@ -1,0 +1,625 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+{{ order.product_name }} — SABBTCo
+{% endblock %}
+
+{% block content %}
+
+<section class="order-detail-hero">
+
+    <div class="container">
+
+        <div class="order-hero-content">
+
+            <div>
+
+                <span class="chip">
+                    {% trans "Order Tracking" %}
+                </span>
+
+                <h1>
+                    {% trans "Order" %} #{{ order.order_id }}
+                </h1>
+
+                <p>
+                    {% trans "Track your shipment progress, payment updates and sourcing activity in real time." %}
+                </p>
+
+            </div>
+
+            <div class="hero-status">
+
+                <span class="status-badge {{ order.status|lower }}">
+                    {{ order.status }}
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="section order-detail-section">
+
+    <div class="container">
+
+        <div class="order-layout">
+
+            <!-- LEFT SIDE -->
+            <div class="order-main">
+
+                <!-- ORDER CARD -->
+                <div class="detail-card">
+
+                    <div class="detail-card-header">
+
+                        <div>
+
+                            <h2>
+                                {% trans "Order Information" %}
+                            </h2>
+
+                            <p>
+                                {% trans "Complete sourcing and shipping details." %}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="detail-grid">
+
+                        <div class="detail-item">
+
+                            <span class="label">
+                                {% trans "Product Name" %}
+                            </span>
+
+                            <h4>
+                                {{ order.product_name }}
+                            </h4>
+
+                        </div>
+
+                        <div class="detail-item">
+
+                            <span class="label">
+                                {% trans "Quantity" %}
+                            </span>
+
+                            <h4>
+                                {{ order.quantity }}
+                            </h4>
+
+                        </div>
+
+                        <div class="detail-item">
+
+                            <span class="label">
+                                {% trans "Shipping Method" %}
+                            </span>
+
+                            <h4>
+                                {{ order.shipping_method|default:"Sea Freight" }}
+                            </h4>
+
+                        </div>
+
+                        <div class="detail-item">
+
+                            <span class="label">
+                                {% trans "Tracking Number" %}
+                            </span>
+
+                            <h4>
+                                {{ order.tracking|default:"Not assigned yet" }}
+                            </h4>
+
+                        </div>
+
+                        <div class="detail-item">
+
+                            <span class="label">
+                                {% trans "Date Created" %}
+                            </span>
+
+                            <h4>
+                                {{ order.created_at|date:"F d, Y" }}
+                            </h4>
+
+                        </div>
+
+                        <div class="detail-item">
+
+                            <span class="label">
+                                {% trans "Estimated Arrival" %}
+                            </span>
+
+                            <h4>
+                                {{ order.estimated_arrival|default:"Pending confirmation" }}
+                            </h4>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- TIMELINE -->
+                <div class="detail-card">
+
+                    <div class="detail-card-header">
+
+                        <div>
+
+                            <h2>
+                                {% trans "Shipment Timeline" %}
+                            </h2>
+
+                            <p>
+                                {% trans "Latest shipment and sourcing updates." %}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="timeline">
+
+                        <div class="timeline-item active">
+
+                            <div class="timeline-dot"></div>
+
+                            <div class="timeline-content">
+
+                                <h4>
+                                    {% trans "Order Submitted" %}
+                                </h4>
+
+                                <p>
+                                    {% trans "Your sourcing request was successfully received." %}
+                                </p>
+
+                                <span>
+                                    {{ order.created_at|date:"M d, Y • H:i" }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        {% if order.status == "processing" or order.status == "shipping" or order.status == "arrived" or order.status == "delivered" %}
+
+                        <div class="timeline-item active">
+
+                            <div class="timeline-dot"></div>
+
+                            <div class="timeline-content">
+
+                                <h4>
+                                    {% trans "Supplier Processing" %}
+                                </h4>
+
+                                <p>
+                                    {% trans "Your goods are being sourced and verified." %}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        {% endif %}
+
+                        {% if order.status == "shipping" or order.status == "arrived" or order.status == "delivered" %}
+
+                        <div class="timeline-item active">
+
+                            <div class="timeline-dot"></div>
+
+                            <div class="timeline-content">
+
+                                <h4>
+                                    {% trans "Shipment In Transit" %}
+                                </h4>
+
+                                <p>
+                                    {% trans "Your cargo is currently on transit." %}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        {% endif %}
+
+                        {% if order.status == "arrived" or order.status == "delivered" %}
+
+                        <div class="timeline-item active">
+
+                            <div class="timeline-dot"></div>
+
+                            <div class="timeline-content">
+
+                                <h4>
+                                    {% trans "Arrived at Destination" %}
+                                </h4>
+
+                                <p>
+                                    {% trans "Shipment arrived and awaiting delivery." %}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        {% endif %}
+
+                        {% if order.status == "delivered" %}
+
+                        <div class="timeline-item active">
+
+                            <div class="timeline-dot"></div>
+
+                            <div class="timeline-content">
+
+                                <h4>
+                                    {% trans "Delivered Successfully" %}
+                                </h4>
+
+                                <p>
+                                    {% trans "Order delivered successfully to customer." %}
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- RIGHT SIDE -->
+            <div class="order-sidebar">
+
+                <!-- STATUS -->
+                <div class="side-card">
+
+                    <h3>
+                        {% trans "Current Status" %}
+                    </h3>
+
+                    <div class="status-box {{ order.status|lower }}">
+
+                        <h2>
+                            {{ order.status }}
+                        </h2>
+
+                        <p>
+                            {% trans "Live shipment progress update." %}
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- PAYMENT -->
+                <div class="side-card">
+
+                    <h3>
+                        {% trans "Payment Summary" %}
+                    </h3>
+
+                    <div class="payment-info">
+
+                        <div class="pay-row">
+
+                            <span>
+                                {% trans "Product Cost" %}
+                            </span>
+
+                            <strong>
+                                KES {{ order.product_cost|default:"0" }}
+                            </strong>
+
+                        </div>
+
+                        <div class="pay-row">
+
+                            <span>
+                                {% trans "Shipping Fee" %}
+                            </span>
+
+                            <strong>
+                                KES {{ order.shipping_cost|default:"0" }}
+                            </strong>
+
+                        </div>
+
+                        <div class="pay-row total">
+
+                            <span>
+                                {% trans "Total" %}
+                            </span>
+
+                            <strong>
+                                KES {{ order.total_cost|default:"0" }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- SUPPORT -->
+                <div class="side-card support-card">
+
+                    <h3>
+                        {% trans "Need Help?" %}
+                    </h3>
+
+                    <p>
+                        {% trans "Our logistics team is available to assist you with shipment tracking and delivery updates." %}
+                    </p>
+
+                    <a href="" class="btn btn-primary btn-block">
+
+                        {% trans "Contact Support" %}
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<style>
+
+.order-detail-hero{
+    background:
+    linear-gradient(rgba(15,27,61,.88), rgba(15,27,61,.88)),
+    url("{% static 'images/hero.jpg' %}");
+    background-size:cover;
+    background-position:center;
+    padding:4rem 0;
+    color:white;
+}
+
+.order-hero-content{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:2rem;
+    flex-wrap:wrap;
+}
+
+.order-detail-hero h1{
+    font-size:3rem;
+    margin-top:1rem;
+    color:white;
+}
+
+.order-detail-hero p{
+    margin-top:1rem;
+    color:rgba(255,255,255,.8);
+    max-width:650px;
+}
+
+.hero-status{
+    display:flex;
+    align-items:center;
+}
+
+.status-badge{
+    padding:14px 22px;
+    border-radius:50px;
+    font-weight:800;
+    font-size:.95rem;
+}
+
+.order-layout{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:2rem;
+}
+
+.detail-card,
+.side-card{
+    background:white;
+    border-radius:22px;
+    border:1px solid var(--border);
+    padding:2rem;
+    box-shadow:0 10px 25px rgba(15,27,61,.06);
+    margin-bottom:2rem;
+}
+
+.detail-card-header{
+    margin-bottom:2rem;
+}
+
+.detail-card-header h2,
+.side-card h3{
+    color:var(--brand-navy);
+    margin-bottom:.4rem;
+}
+
+.detail-card-header p{
+    color:var(--muted-fg);
+}
+
+.detail-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1.5rem;
+}
+
+.detail-item{
+    padding:1.2rem;
+    background:#f8faff;
+    border-radius:16px;
+    border:1px solid rgba(0,0,0,.04);
+}
+
+.detail-item .label{
+    font-size:.82rem;
+    color:var(--muted-fg);
+    display:block;
+    margin-bottom:.55rem;
+}
+
+.detail-item h4{
+    color:var(--brand-navy);
+    font-size:1rem;
+}
+
+.timeline{
+    position:relative;
+    padding-left:1rem;
+}
+
+.timeline::before{
+    content:"";
+    position:absolute;
+    left:10px;
+    top:0;
+    width:2px;
+    height:100%;
+    background:#e5e7eb;
+}
+
+.timeline-item{
+    position:relative;
+    display:flex;
+    gap:1rem;
+    margin-bottom:2rem;
+}
+
+.timeline-dot{
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:#cbd5e1;
+    border:4px solid white;
+    box-shadow:0 0 0 3px #e5e7eb;
+    position:relative;
+    z-index:2;
+}
+
+.timeline-item.active .timeline-dot{
+    background:var(--brand-red);
+    box-shadow:0 0 0 3px rgba(214,32,44,.2);
+}
+
+.timeline-content h4{
+    margin-bottom:.4rem;
+    color:var(--brand-navy);
+}
+
+.timeline-content p{
+    color:var(--muted-fg);
+    font-size:.93rem;
+    line-height:1.7;
+}
+
+.timeline-content span{
+    display:block;
+    margin-top:.55rem;
+    font-size:.8rem;
+    color:#94a3b8;
+}
+
+.status-box{
+    padding:1.5rem;
+    border-radius:18px;
+    text-align:center;
+}
+
+.status-box h2{
+    margin-bottom:.5rem;
+}
+
+.payment-info{
+    margin-top:1rem;
+}
+
+.pay-row{
+    display:flex;
+    justify-content:space-between;
+    padding:1rem 0;
+    border-bottom:1px solid #eef2f7;
+}
+
+.pay-row.total{
+    border:none;
+    padding-top:1.3rem;
+}
+
+.pay-row.total strong{
+    color:var(--brand-red);
+    font-size:1.1rem;
+}
+
+.support-card p{
+    margin:1rem 0 1.5rem;
+    color:var(--muted-fg);
+    line-height:1.7;
+}
+
+.pending{
+    background:#fff7db;
+    color:#a16207;
+}
+
+.processing{
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+.shipping{
+    background:#e0f2fe;
+    color:#0369a1;
+}
+
+.arrived{
+    background:#ede9fe;
+    color:#6d28d9;
+}
+
+.delivered{
+    background:#dcfce7;
+    color:#166534;
+}
+
+@media(max-width:950px){
+
+    .order-layout{
+        grid-template-columns:1fr;
+    }
+
+    .detail-grid{
+        grid-template-columns:1fr;
+    }
+
+    .order-detail-hero h1{
+        font-size:2.2rem;
+    }
+
+}
+
+</style>
+
+{% endblock %}

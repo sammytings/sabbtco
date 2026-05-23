@@ -33,82 +33,104 @@
 
     {% if orders %}
 
-      <div class="orders-table">
+    <div class="orders-table">
 
-        <div class="orders-head">
+      <!-- TABLE HEAD -->
+      <div class="orders-head">
 
-          <span>
-            {% trans "Order No." %}
-          </span>
+        <span>
+          {% trans "Order No." %}
+        </span>
 
-          <span>
-            {% trans "Product" %}
-          </span>
+        <span>
+          {% trans "Product" %}
+        </span>
 
-          <span>
-            {% trans "Qty" %}
-          </span>
+        <span>
+          {% trans "Qty" %}
+        </span>
 
-          <span>
-            {% trans "Status" %}
-          </span>
+        <span>
+          {% trans "Status" %}
+        </span>
 
-          <span>
-            {% trans "Date" %}
-          </span>
+        <span>
+          {% trans "Date" %}
+        </span>
 
-        </div>
+        <span>
+          {% trans "Action" %}
+        </span>
 
-        {% for order in orders %}
+      </div>
 
-        <div class="orders-row">
+      <!-- ORDERS -->
+      {% for order in orders %}
 
-          <span>
-            <b>#{{ order.id }}</b>
-          </span>
+      <div class="orders-row">
 
-          <span>
-            {{ order.product_name }}
-          </span>
+        <span>
+          <b>#{{ order.order_id }}</b>
+        </span>
 
-          <span>
-            {{ order.quantity }}
-          </span>
+        <span>
+          {{ order.product_name }}
+        </span>
+
+        <span>
+          {{ order.quantity }}
+        </span>
+
+        <span>
 
           <span class="status {{ order.status|lower }}">
             {{ order.status }}
           </span>
 
-          <span>
-            {{ order.created_at|date:"M d, Y" }}
-          </span>
+        </span>
 
-        </div>
+        <span>
+          {{ order.created_at|date:"M d, Y" }}
+        </span>
 
-        {% endfor %}
+        <span>
+
+          <a href="{% url 'order_detail' order.id %}"
+             class="btn btn-primary btn-sm">
+
+            View Details
+
+          </a>
+
+        </span>
 
       </div>
+
+      {% endfor %}
+
+    </div>
 
     {% else %}
 
-      <div class="empty-orders">
+    <!-- EMPTY STATE -->
+    <div class="empty-orders">
 
-        <h2>
-          {% trans "No orders yet." %}
-        </h2>
+      <h2>
+        {% trans "No orders yet." %}
+      </h2>
 
-        <p>
-          {% trans "Once you place an order, it will appear here with its current status." %}
-        </p>
+      <p>
+        {% trans "Once you place an order, it will appear here with its current status." %}
+      </p>
 
-        <a href="{% url 'quote' %}"
-           class="btn btn-primary">
+      <a href="{% url 'quote' %}"
+         class="btn btn-primary">
 
-          {% trans "Request a Quote" %} →
+        {% trans "Request a Quote" %} →
 
-        </a>
+      </a>
 
-      </div>
+    </div>
 
     {% endif %}
 
