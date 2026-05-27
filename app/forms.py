@@ -12,4 +12,6 @@ class OrderForm(forms.ModelForm):
             "product_name",
             "quantity",
             "notes",
+            "address",
+            "notes",
         ]

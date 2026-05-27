@@ -138,24 +138,96 @@
 
           <div class="field">
 
-            <label>
-              {% trans "Phone (with code)" %}
-            </label>
+<!-- COUNTRY -->
+<div class="field">
 
-            <input name="phone" required>
+  <label>
+    {% trans "Destination Country" %}
+  </label>
 
-          </div>
+  <div class="country-select-wrapper">
 
-          <div class="field">
+    <select name="country"
+            id="countrySelect"
+            required>
 
-            <label>
-              {% trans "Country" %}
-            </label>
+      <option value="" data-code="">
+        🌍 {% trans "Select Country" %}
+      </option>
 
-            <input name="country" required>
+      <option value="Kenya" data-code="+254">
+        🇰🇪 Kenya
+      </option>
 
-          </div>
+      <option value="Uganda" data-code="+256">
+        🇺🇬 Uganda
+      </option>
 
+      <option value="Tanzania" data-code="+255">
+        🇹🇿 Tanzania
+      </option>
+
+      <option value="Rwanda" data-code="+250">
+        🇷🇼 Rwanda
+      </option>
+
+      <option value="South Sudan" data-code="+211">
+        🇸🇸 South Sudan
+      </option>
+
+      <option value="Nigeria" data-code="+234">
+        🇳🇬 Nigeria
+      </option>
+
+      <option value="Ghana" data-code="+233">
+        🇬🇭 Ghana
+      </option>
+
+      <option value="South Africa" data-code="+27">
+        🇿🇦 South Africa
+      </option>
+
+      <option value="United States" data-code="+1">
+        🇺🇸 United States
+      </option>
+
+      <option value="United Kingdom" data-code="+44">
+        🇬🇧 United Kingdom
+      </option>
+
+      <option value="China" data-code="+86">
+        🇨🇳 China
+      </option>
+
+    </select>
+
+  </div>
+
+</div>
+
+<!-- PHONE -->
+<div class="field">
+
+  <label>
+    {% trans "Phone Number" %}
+  </label>
+
+  <div class="phone-group">
+
+    <input type="text"
+           id="countryCode"
+           class="country-code"
+           value="+254"
+           readonly>
+
+    <input name="phone"
+           type="tel"
+           placeholder="712345678"
+           required>
+
+  </div>
+
+</div>
           <div class="field full">
 
             <label>

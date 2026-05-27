@@ -303,6 +303,26 @@
 
 {% block extra_js %}
 {% endblock %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const countrySelect = document.getElementById("countrySelect");
+    const countryCode = document.getElementById("countryCode");
+
+    countrySelect.addEventListener("change", function () {
+
+        const selectedOption =
+            countrySelect.options[countrySelect.selectedIndex];
+
+        const code =
+            selectedOption.getAttribute("data-code");
+
+        countryCode.value = code;
+
+    });
+
+});
+</script>
 
 </body>
 </html>

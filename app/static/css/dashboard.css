@@ -1586,3 +1586,49 @@ table td{
         width:100%;
     }
 }
+.package-gallery {
+    margin-top: 5rem;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+}
+
+.gallery-card {
+    background: #fff;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.06);
+    transition: 0.3s ease;
+}
+
+.gallery-card:hover {
+    transform: translateY(-6px);
+}
+
+.gallery-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+}
+
+.gallery-content {
+    padding: 1rem;
+}
+
+.gallery-content p {
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+}
+
+.gallery-content small {
+    color: #777;
+}
+
+.empty-gallery {
+    padding: 2rem;
+    background: #f7f7f7;
+    border-radius: 18px;
+}

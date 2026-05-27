@@ -7,135 +7,364 @@
 
 {% block content %}
 
-<section class="page-hero" style="padding:3rem 0">
+<section class="page-hero orders-hero">
 
-  <div class="container">
+    <div class="container">
 
-    <span class="chip">
-      {% trans "Client Portal" %}
-    </span>
+        <span class="chip">
+            {% trans "Client Portal" %}
+        </span>
 
-    <h1>
-      {% trans "My Orders" %}
-    </h1>
+        <h1>
+            {% trans "My Orders" %}
+        </h1>
 
-    <p>
-      {% trans "Track your sourcing and shipping progress in real time." %}
-    </p>
+        <p>
+            {% trans "Track your sourcing, shipment and delivery updates in real time." %}
+        </p>
 
-  </div>
+    </div>
 
 </section>
 
 <section class="section">
 
-  <div class="container">
+    <div class="container">
 
-    {% if orders %}
+        {% if orders %}
 
-    <div class="orders-table">
+        <div class="orders-wrapper">
 
-      <!-- TABLE HEAD -->
-      <div class="orders-head">
+            <!-- HEADER -->
+            <div class="orders-head">
 
-        <span>
-          {% trans "Order No." %}
-        </span>
+                <span>Order</span>
 
-        <span>
-          {% trans "Product" %}
-        </span>
+                <span>Product</span>
 
-        <span>
-          {% trans "Qty" %}
-        </span>
+                <span>Status</span>
 
-        <span>
-          {% trans "Status" %}
-        </span>
+                <span>Tracking</span>
 
-        <span>
-          {% trans "Date" %}
-        </span>
+                <span>Total</span>
 
-        <span>
-          {% trans "Action" %}
-        </span>
+                <span>Date</span>
 
-      </div>
+                <span>Action</span>
 
-      <!-- ORDERS -->
-      {% for order in orders %}
+            </div>
 
-      <div class="orders-row">
+            <!-- ORDERS -->
+            {% for order in orders %}
 
-        <span>
-          <b>#{{ order.order_id }}</b>
-        </span>
+            <div class="orders-row">
 
-        <span>
-          {{ order.product_name }}
-        </span>
+                <!-- ORDER ID -->
+                <div class="order-col">
 
-        <span>
-          {{ order.quantity }}
-        </span>
+                    <strong>
+                        #{{ order.order_id }}
+                    </strong>
 
-        <span>
+                </div>
 
-          <span class="status {{ order.status|lower }}">
-            {{ order.status }}
-          </span>
+                <!-- PRODUCT -->
+                <div class="order-col">
 
-        </span>
+                    <h4>
+                        {{ order.product_name }}
+                    </h4>
 
-        <span>
-          {{ order.created_at|date:"M d, Y" }}
-        </span>
+                    <small>
+                        Qty: {{ order.quantity }}
+                    </small>
 
-        <span>
+                </div>
 
-          <a href="{% url 'order_detail' order.id %}"
-             class="btn btn-primary btn-sm">
+                <!-- STATUS -->
+                <div class="order-col">
 
-            View Details
+                    <span class="status-badge {{ order.status|lower }}">
 
-          </a>
+                        {{ order.status }}
 
-        </span>
+                    </span>
 
-      </div>
+                </div>
 
-      {% endfor %}
+                <!-- TRACKING -->
+                <div class="order-col">
+
+                    {% if order.tracking_number %}
+
+                    <span class="tracking-number">
+
+                        {{ order.tracking_number }}
+
+                    </span>
+
+                    {% else %}
+
+                    <span class="muted">
+                        Pending
+                    </span>
+
+                    {% endif %}
+
+                </div>
+
+                <!-- AMOUNT -->
+                <div class="order-col">
+
+                    <strong>
+                        ${{ order.amount }}
+                    </strong>
+
+                </div>
+
+                <!-- DATE -->
+                <div class="order-col">
+
+                    {{ order.created_at|date:"M d, Y" }}
+
+                </div>
+
+                <!-- ACTION -->
+                <div class="order-col">
+
+                    <a href="{% url 'order_detail' order.id %}"
+                       class="btn btn-primary btn-sm">
+
+                        View Details
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <!-- EMPTY -->
+        <div class="empty-orders">
+
+            <div class="empty-icon">
+
+                📦
+
+            </div>
+
+            <h2>
+                {% trans "No orders yet" %}
+            </h2>
+
+            <p>
+                {% trans "Once you submit a sourcing request, your shipment progress will appear here." %}
+            </p>
+
+            <a href="{% url 'quote' %}"
+               class="btn btn-primary">
+
+                {% trans "Request a Quote" %}
+
+            </a>
+
+        </div>
+
+        {% endif %}
 
     </div>
-
-    {% else %}
-
-    <!-- EMPTY STATE -->
-    <div class="empty-orders">
-
-      <h2>
-        {% trans "No orders yet." %}
-      </h2>
-
-      <p>
-        {% trans "Once you place an order, it will appear here with its current status." %}
-      </p>
-
-      <a href="{% url 'quote' %}"
-         class="btn btn-primary">
-
-        {% trans "Request a Quote" %} →
-
-      </a>
-
-    </div>
-
-    {% endif %}
-
-  </div>
 
 </section>
+
+<style>
+
+.orders-hero{
+    padding:4rem 0;
+    background:linear-gradient(
+        135deg,
+        #0f172a,
+        #1e293b
+    );
+    color:white;
+}
+
+.orders-hero h1{
+    color:white;
+    margin-top:1rem;
+    font-size:3rem;
+}
+
+.orders-hero p{
+    color:rgba(255,255,255,.75);
+    max-width:650px;
+    margin-top:1rem;
+}
+
+.orders-wrapper{
+    background:white;
+    border-radius:24px;
+    overflow:hidden;
+    border:1px solid #e5e7eb;
+    box-shadow:0 10px 30px rgba(15,23,42,.05);
+}
+
+.orders-head{
+    display:grid;
+    grid-template-columns:
+    1fr
+    2fr
+    1fr
+    1.3fr
+    1fr
+    1fr
+    1fr;
+
+    gap:1rem;
+
+    padding:1.2rem 1.5rem;
+
+    background:#0f172a;
+
+    color:white;
+
+    font-weight:700;
+}
+
+.orders-row{
+    display:grid;
+
+    grid-template-columns:
+    1fr
+    2fr
+    1fr
+    1.3fr
+    1fr
+    1fr
+    1fr;
+
+    gap:1rem;
+
+    padding:1.5rem;
+
+    align-items:center;
+
+    border-bottom:1px solid #f1f5f9;
+
+    transition:.25s;
+}
+
+.orders-row:hover{
+    background:#f8fafc;
+}
+
+.order-col h4{
+    margin-bottom:.35rem;
+    color:#0f172a;
+}
+
+.order-col small{
+    color:#64748b;
+}
+
+.status-badge{
+    padding:.55rem 1rem;
+    border-radius:999px;
+    font-size:.82rem;
+    font-weight:700;
+    text-transform:capitalize;
+}
+
+.pending{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.processing{
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+.paid{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.shipping{
+    background:#e0f2fe;
+    color:#0369a1;
+}
+
+.arrived{
+    background:#ede9fe;
+    color:#6d28d9;
+}
+
+.delivered{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.cancelled{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.tracking-number{
+    font-family:monospace;
+    background:#f8fafc;
+    padding:.5rem .75rem;
+    border-radius:10px;
+    font-size:.85rem;
+}
+
+.muted{
+    color:#94a3b8;
+}
+
+.empty-orders{
+    text-align:center;
+    padding:5rem 2rem;
+    background:white;
+    border-radius:24px;
+    border:1px solid #e5e7eb;
+}
+
+.empty-icon{
+    font-size:4rem;
+    margin-bottom:1rem;
+}
+
+.empty-orders h2{
+    margin-bottom:1rem;
+}
+
+.empty-orders p{
+    color:#64748b;
+    margin-bottom:2rem;
+}
+
+@media(max-width:1100px){
+
+    .orders-head{
+        display:none;
+    }
+
+    .orders-row{
+        grid-template-columns:1fr;
+        padding:1.5rem;
+    }
+
+    .order-col{
+        padding:.35rem 0;
+    }
+
+}
+
+</style>
 
 {% endblock %}

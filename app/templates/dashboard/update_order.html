@@ -193,7 +193,8 @@
 
                             <input type="text"
                                    name="tracking_number"
-                                   value="{{ order.tracking_number }}">
+                                   value="{{ order.tracking_number }}"
+                                   placeholder="Enter tracking number">
 
                         </div>
 
@@ -219,12 +220,40 @@
                             </label>
 
                             <textarea name="notes"
-                                      rows="5">{{ order.notes }}</textarea>
+                                      rows="5"
+                                      placeholder="Add order notes...">{{ order.notes }}</textarea>
+
+                        </div>
+
+                        <!-- TIMELINE TITLE -->
+                        <div class="form-group full">
+
+                            <label>
+                                Timeline Update Title
+                            </label>
+
+                            <input type="text"
+                                   name="timeline_title"
+                                   placeholder="e.g Container arrived at Mombasa Port">
+
+                        </div>
+
+                        <!-- TIMELINE DESCRIPTION -->
+                        <div class="form-group full">
+
+                            <label>
+                                Timeline Description
+                            </label>
+
+                            <textarea name="timeline_description"
+                                      rows="4"
+                                      placeholder="Describe shipment progress..."></textarea>
 
                         </div>
 
                     </div>
 
+                    <!-- ACTIONS -->
                     <div class="form-actions">
 
                         <button type="submit"

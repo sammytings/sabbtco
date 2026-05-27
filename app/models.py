@@ -1,11 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils.crypto import get_random_string
-from django.db import models
-from django.contrib.auth.models import User
 import random
 
 
+# ==========================================
+# ORDER MODEL
+# ==========================================
 class Order(models.Model):
 
     STATUS_CHOICES = [
@@ -75,7 +75,7 @@ class Order(models.Model):
 
         if not self.order_id:
 
-            self.order_id = f"SBT-{random.randint(100000,999999)}"
+            self.order_id = f"SBT-{random.randint(100000, 999999)}"
 
         super().save(*args, **kwargs)
 
@@ -83,31 +83,41 @@ class Order(models.Model):
 
         return self.order_id
 
-# =========================
+
+# ==========================================
 # BANNER MODEL
-# =========================
+# ==========================================
 class Banner(models.Model):
 
-    title = models.CharField(max_length=200, blank=True)
+    title = models.CharField(
+        max_length=200,
+        blank=True
+    )
 
-    image = models.ImageField(upload_to="banners/")
+    image = models.ImageField(
+        upload_to="banners/"
+    )
 
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(
+        default=True
+    )
 
-    order = models.IntegerField(default=0)
+    order = models.IntegerField(
+        default=0
+    )
 
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
 
     def __str__(self):
+
         return self.title or f"Banner {self.id}"
-    def save(self, *args, **kwargs):
 
-        if not self.order_id:
 
-            self.order_id = f"DMK-{random.randint(100000,999999)}"
-
-            super().save(*args, **kwargs)
-
+# ==========================================
+# ORDER TIMELINE MODEL
+# ==========================================
 class OrderTimeline(models.Model):
 
     order = models.ForeignKey(
@@ -116,14 +126,79 @@ class OrderTimeline(models.Model):
         related_name="timeline"
     )
 
-    title = models.CharField(max_length=255)
+    title = models.CharField(
+        max_length=255
+    )
 
-    description = models.TextField(blank=True)
+    description = models.TextField(
+        blank=True
+    )
 
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
 
     class Meta:
-        ordering = ['-created_at']
+
+        ordering = ["-created_at"]
 
     def __str__(self):
+
         return f"{self.order.order_id} - {self.title}"
+
+
+# ==========================================
+# DOCUMENT MODEL
+# ==========================================
+class Document(models.Model):
+
+    order = models.ForeignKey(
+        Order,
+        related_name="documents",
+        on_delete=models.CASCADE
+    )
+
+    title = models.CharField(
+        max_length=255
+    )
+
+    file = models.FileField(
+        upload_to="documents/"
+    )
+
+    uploaded_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+
+        return self.title
+
+
+# ==========================================
+# PACKAGE PHOTO MODEL
+# ==========================================
+class PackagePhoto(models.Model):
+
+    order = models.ForeignKey(
+        Order,
+        on_delete=models.CASCADE,
+        related_name="photos"
+    )
+
+    image = models.ImageField(
+        upload_to="package_photos/"
+    )
+
+    caption = models.CharField(
+        max_length=255,
+        blank=True
+    )
+
+    uploaded_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+
+        return self.caption or f"Photo for {self.order.order_id}"
