@@ -371,9 +371,13 @@
 
 <tr>
     <td>
-    <a href="{% url 'order_detail' order.id %}">
+
+    <a href="{% url 'order_detail' order.order_id %}">
+
         #{{ order.order_id }}
+
     </a>
+
 </td>
 
     <td>
@@ -400,7 +404,7 @@
 
     <td>
 
-        <a href="{% url 'update_order' order.id %}"
+        <a href="{% url 'update_order' order.order_id %}"
            class="action-btn">
 
             Update

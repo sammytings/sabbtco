@@ -34,9 +34,7 @@
             <div class="hero-status">
 
                 <span class="status-badge {{ order.status|lower }}">
-
                     {{ order.status }}
-
                 </span>
 
             </div>
@@ -47,6 +45,62 @@
 
 </section>
 
+<!-- TRACKING PROGRESS -->
+<section class="tracking-progress-section">
+
+    <div class="container">
+
+        <div class="progress-card">
+
+            <h2>
+                Shipment Progress
+            </h2>
+
+            <div class="progress-wrapper">
+
+                <!-- Pending -->
+                <div class="progress-step {% if order.status == 'pending' or order.status == 'processing' or order.status == 'paid' or order.status == 'shipping' or order.status == 'arrived' or order.status == 'delivered' %}active{% endif %}">
+                    <div class="circle">✓</div>
+                    <span>Pending</span>
+                </div>
+
+                <!-- Processing -->
+                <div class="progress-step {% if order.status == 'processing' or order.status == 'paid' or order.status == 'shipping' or order.status == 'arrived' or order.status == 'delivered' %}active{% endif %}">
+                    <div class="circle">✓</div>
+                    <span>Processing</span>
+                </div>
+
+                <!-- Paid -->
+                <div class="progress-step {% if order.status == 'paid' or order.status == 'shipping' or order.status == 'arrived' or order.status == 'delivered' %}active{% endif %}">
+                    <div class="circle">✓</div>
+                    <span>Paid</span>
+                </div>
+
+                <!-- Shipping -->
+                <div class="progress-step {% if order.status == 'shipping' or order.status == 'arrived' or order.status == 'delivered' %}active{% endif %}">
+                    <div class="circle">✓</div>
+                    <span>Shipping</span>
+                </div>
+
+                <!-- Arrived -->
+                <div class="progress-step {% if order.status == 'arrived' or order.status == 'delivered' %}active{% endif %}">
+                    <div class="circle">✓</div>
+                    <span>Arrived</span>
+                </div>
+
+                <!-- Delivered -->
+                <div class="progress-step {% if order.status == 'delivered' %}active{% endif %}">
+                    <div class="circle">✓</div>
+                    <span>Delivered</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
 <!-- MAIN -->
 <section class="section order-detail-section">
@@ -80,83 +134,40 @@
                     <div class="detail-grid">
 
                         <div class="detail-item">
-
-                            <span class="label">
-                                {% trans "Product Name" %}
-                            </span>
-
-                            <h4>
-                                {{ order.product_name }}
-                            </h4>
-
+                            <span class="label">Product Name</span>
+                            <h4>{{ order.product_name }}</h4>
                         </div>
 
                         <div class="detail-item">
-
-                            <span class="label">
-                                {% trans "Quantity" %}
-                            </span>
-
-                            <h4>
-                                {{ order.quantity }}
-                            </h4>
-
+                            <span class="label">Quantity</span>
+                            <h4>{{ order.quantity }}</h4>
                         </div>
 
                         <div class="detail-item">
-
-                            <span class="label">
-                                {% trans "Shipping Method" %}
-                            </span>
-
-                            <h4>
-                                {{ order.shipping_method|default:"Sea Freight" }}
-                            </h4>
-
+                            <span class="label">Tracking Number</span>
+                            <h4>{{ order.tracking_number|default:"Not assigned yet" }}</h4>
                         </div>
 
                         <div class="detail-item">
-
-                            <span class="label">
-                                {% trans "Tracking Number" %}
-                            </span>
-
-                            <h4>
-                                {{ order.tracking_number|default:"Not assigned yet" }}
-                            </h4>
-
+                            <span class="label">Date Created</span>
+                            <h4>{{ order.created_at|date:"F d, Y" }}</h4>
                         </div>
 
                         <div class="detail-item">
-
-                            <span class="label">
-                                {% trans "Date Created" %}
-                            </span>
-
-                            <h4>
-                                {{ order.created_at|date:"F d, Y" }}
-                            </h4>
-
+                            <span class="label">Amount</span>
+                            <h4>USD {{ order.amount }}</h4>
                         </div>
 
                         <div class="detail-item">
-
-                            <span class="label">
-                                {% trans "Estimated Arrival" %}
-                            </span>
-
-                            <h4>
-                                {{ order.estimated_arrival|default:"Pending confirmation" }}
-                            </h4>
-
+                            <span class="label">Current Status</span>
+                            <h4>{{ order.status }}</h4>
                         </div>
 
                     </div>
 
                 </div>
 
-
-                <!-- REAL TIMELINE -->
+                <!-- TIMELINE -->
                 <div class="detail-card">
 
                     <div class="detail-card-header">
@@ -164,11 +175,11 @@
                         <div>
 
                             <h2>
-                                {% trans "Shipment Timeline" %}
+                                Shipment Timeline
                             </h2>
 
                             <p>
-                                {% trans "Latest shipment and sourcing updates." %}
+                                Latest shipment updates
                             </p>
 
                         </div>
@@ -177,7 +188,6 @@
 
                     <div class="timeline">
 
-                        <!-- DEFAULT -->
                         <div class="timeline-item active">
 
                             <div class="timeline-dot"></div>
@@ -185,11 +195,11 @@
                             <div class="timeline-content">
 
                                 <h4>
-                                    {% trans "Order Submitted" %}
+                                    Order Submitted
                                 </h4>
 
                                 <p>
-                                    {% trans "Your sourcing request was successfully received." %}
+                                    Your order was successfully received.
                                 </p>
 
                                 <span>
@@ -200,7 +210,6 @@
 
                         </div>
 
-                        <!-- DYNAMIC TIMELINE -->
                         {% for item in timeline %}
 
                         <div class="timeline-item active">
@@ -227,13 +236,9 @@
 
                         {% empty %}
 
-                        <div class="timeline-empty">
-
-                            <p class="muted">
-                                No shipment updates yet.
-                            </p>
-
-                        </div>
+                        <p class="muted">
+                            No updates yet.
+                        </p>
 
                         {% endfor %}
 
@@ -243,7 +248,6 @@
 
             </div>
 
-
             <!-- RIGHT -->
             <div class="order-sidebar">
 
@@ -251,7 +255,7 @@
                 <div class="side-card">
 
                     <h3>
-                        {% trans "Current Status" %}
+                        Current Status
                     </h3>
 
                     <div class="status-box {{ order.status|lower }}">
@@ -261,51 +265,35 @@
                         </h2>
 
                         <p>
-                            {% trans "Live shipment progress update." %}
+                            Live shipment progress update.
                         </p>
 
                     </div>
 
                 </div>
 
-
                 <!-- PAYMENT -->
                 <div class="side-card">
 
                     <h3>
-                        {% trans "Payment Summary" %}
+                        Payment Summary
                     </h3>
 
                     <div class="payment-info">
 
                         <div class="pay-row">
-
-                            <span>
-                                {% trans "Amount" %}
-                            </span>
-
-                            <strong>
-                                USD {{ order.amount }}
-                            </strong>
-
+                            <span>Amount</span>
+                            <strong>USD {{ order.amount }}</strong>
                         </div>
 
                         <div class="pay-row total">
-
-                            <span>
-                                {% trans "Total" %}
-                            </span>
-
-                            <strong>
-                                USD {{ order.amount }}
-                            </strong>
-
+                            <span>Total</span>
+                            <strong>USD {{ order.amount }}</strong>
                         </div>
 
                     </div>
 
                 </div>
-
 
                 <!-- DOCUMENT UPLOAD -->
                 <div class="side-card">
@@ -316,7 +304,7 @@
 
                     <form method="POST"
                           enctype="multipart/form-data"
-                          action="{% url 'upload_document' order.id %}">
+                          action="{% url 'upload_document' order.order_id %}">
 
                         {% csrf_token %}
 
@@ -340,27 +328,6 @@
 
                 </div>
 
-
-                <!-- SUPPORT -->
-                <div class="side-card support-card">
-
-                    <h3>
-                        {% trans "Need Help?" %}
-                    </h3>
-
-                    <p>
-                        {% trans "Our logistics team is available to assist you with shipment tracking and delivery updates." %}
-                    </p>
-
-                    <a href="#"
-                       class="btn btn-primary btn-block">
-
-                        {% trans "Contact Support" %}
-
-                    </a>
-
-                </div>
-
             </div>
 
         </div>
@@ -368,7 +335,6 @@
     </div>
 
 </section>
-
 
 <!-- DOCUMENTS -->
 <section class="section">
@@ -384,10 +350,6 @@
                     <h2>
                         Shipping Documents
                     </h2>
-
-                    <p>
-                        Download invoices and shipment files.
-                    </p>
 
                 </div>
 
@@ -432,23 +394,29 @@
         </div>
 
     </div>
+
+</section>
+
+<!-- PACKAGE PHOTOS -->
 <section class="package-gallery">
 
-    <div class="section-head">
+    <div class="container">
 
-        <span class="chip">
-            📸 Package Photos
-        </span>
+        <div class="section-head">
 
-        <h2>
-            Warehouse & Shipment Images
-        </h2>
+            <span class="chip">
+                📸 Package Photos
+            </span>
 
-    </div>
+            <h2>
+                Warehouse & Shipment Images
+            </h2>
 
-    <div class="gallery-grid">
+        </div>
 
-        {% for photo in photos %}
+        <div class="gallery-grid">
+
+            {% for photo in photos %}
 
             <div class="gallery-card">
 
@@ -458,7 +426,7 @@
                 <div class="gallery-content">
 
                     {% if photo.caption %}
-                        <p>{{ photo.caption }}</p>
+                    <p>{{ photo.caption }}</p>
                     {% endif %}
 
                     <small>
@@ -469,7 +437,7 @@
 
             </div>
 
-        {% empty %}
+            {% empty %}
 
             <div class="empty-gallery">
 
@@ -479,18 +447,78 @@
 
             </div>
 
-        {% endfor %}
+            {% endfor %}
+
+        </div>
 
     </div>
 
 </section>
-</section>
-
-</section>
-
 
 <style>
 
+/* TRACKER */
+.tracking-progress-section{
+    margin-top:-40px;
+    position:relative;
+    z-index:10;
+}
+
+.progress-card{
+    background:white;
+    padding:2rem;
+    border-radius:24px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.progress-wrapper{
+    display:flex;
+    justify-content:space-between;
+    gap:1rem;
+    flex-wrap:wrap;
+}
+
+.progress-step{
+    flex:1;
+    text-align:center;
+    position:relative;
+}
+
+.progress-step::after{
+    content:"";
+    position:absolute;
+    top:20px;
+    left:60%;
+    width:100%;
+    height:4px;
+    background:#e5e7eb;
+}
+
+.progress-step:last-child::after{
+    display:none;
+}
+
+.circle{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:#e5e7eb;
+    color:#94a3b8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto;
+    font-weight:700;
+    position:relative;
+    z-index:2;
+}
+
+.progress-step.active .circle{
+    background:#d6202c;
+    color:white;
+}
+
+/* HERO */
 .order-detail-hero{
     background:
     linear-gradient(rgba(15,27,61,.88), rgba(15,27,61,.88)),
@@ -499,39 +527,6 @@
     background-position:center;
     padding:4rem 0;
     color:white;
-}
-
-.order-hero-content{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:2rem;
-    flex-wrap:wrap;
-}
-
-.order-detail-hero h1{
-    font-size:3rem;
-    margin-top:1rem;
-    color:white;
-}
-
-.order-detail-hero p{
-    margin-top:1rem;
-    color:rgba(255,255,255,.8);
-    max-width:650px;
-}
-
-.hero-status{
-    display:flex;
-    align-items:center;
-}
-
-.status-badge{
-    padding:14px 22px;
-    border-radius:50px;
-    font-weight:800;
-    font-size:.95rem;
-    text-transform:capitalize;
 }
 
 .order-layout{
@@ -544,138 +539,46 @@
 .side-card{
     background:white;
     border-radius:22px;
-    border:1px solid var(--border);
     padding:2rem;
-    box-shadow:0 10px 25px rgba(15,27,61,.06);
     margin-bottom:2rem;
-}
-
-.detail-card-header{
-    margin-bottom:2rem;
-}
-
-.detail-card-header h2,
-.side-card h3{
-    color:var(--brand-navy);
-    margin-bottom:.4rem;
-}
-
-.detail-card-header p{
-    color:var(--muted-fg);
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
 }
 
 .detail-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:1.5rem;
+    gap:1rem;
 }
 
 .detail-item{
-    padding:1.2rem;
-    background:#f8faff;
-    border-radius:16px;
-    border:1px solid rgba(0,0,0,.04);
+    background:#f8fafc;
+    padding:1rem;
+    border-radius:14px;
 }
 
-.detail-item .label{
-    font-size:.82rem;
-    color:var(--muted-fg);
+.label{
     display:block;
-    margin-bottom:.55rem;
-}
-
-.detail-item h4{
-    color:var(--brand-navy);
-    font-size:1rem;
+    margin-bottom:.5rem;
+    color:#64748b;
+    font-size:.85rem;
 }
 
 .timeline{
-    position:relative;
-    padding-left:1rem;
-}
-
-.timeline::before{
-    content:"";
-    position:absolute;
-    left:10px;
-    top:0;
-    width:2px;
-    height:100%;
-    background:#e5e7eb;
-}
-
-.timeline-item{
-    position:relative;
-    display:flex;
-    gap:1rem;
-    margin-bottom:2rem;
-}
-
-.timeline-dot{
-    width:18px;
-    height:18px;
-    border-radius:50%;
-    background:var(--brand-red);
-    border:4px solid white;
-    box-shadow:0 0 0 3px rgba(214,32,44,.2);
-    position:relative;
-    z-index:2;
-}
-
-.timeline-content h4{
-    margin-bottom:.4rem;
-    color:var(--brand-navy);
-}
-
-.timeline-content p{
-    color:var(--muted-fg);
-    font-size:.93rem;
-    line-height:1.7;
-}
-
-.timeline-content span{
-    display:block;
-    margin-top:.55rem;
-    font-size:.8rem;
-    color:#94a3b8;
-}
-
-.status-box{
-    padding:1.5rem;
-    border-radius:18px;
-    text-align:center;
-}
-
-.status-box h2{
-    margin-bottom:.5rem;
-    text-transform:capitalize;
-}
-
-.payment-info{
     margin-top:1rem;
 }
 
-.pay-row{
+.timeline-item{
     display:flex;
-    justify-content:space-between;
-    padding:1rem 0;
-    border-bottom:1px solid #eef2f7;
+    gap:1rem;
+    margin-bottom:1.5rem;
 }
 
-.pay-row.total{
-    border:none;
-    padding-top:1.3rem;
-}
-
-.pay-row.total strong{
-    color:var(--brand-red);
-    font-size:1.1rem;
-}
-
-.support-card p{
-    margin:1rem 0 1.5rem;
-    color:var(--muted-fg);
-    line-height:1.7;
+.timeline-dot{
+    width:16px;
+    height:16px;
+    border-radius:50%;
+    background:#d6202c;
+    margin-top:5px;
 }
 
 .documents-list{
@@ -688,25 +591,34 @@
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:1rem 1.2rem;
-    border:1px solid #eef2f7;
+    padding:1rem;
+    border:1px solid #e2e8f0;
     border-radius:14px;
     text-decoration:none;
     color:inherit;
-    transition:.25s;
 }
 
-.document-item:hover{
-    background:#f8fafc;
+.gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:1.5rem;
 }
 
-.document-item h4{
-    margin-bottom:.3rem;
+.gallery-card{
+    background:white;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
 }
 
-.document-item span{
-    color:#94a3b8;
-    font-size:.85rem;
+.gallery-card img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+}
+
+.gallery-content{
+    padding:1rem;
 }
 
 .pending{
@@ -744,10 +656,6 @@
     color:#991b1b;
 }
 
-.muted{
-    color:#94a3b8;
-}
-
 @media(max-width:950px){
 
     .order-layout{
@@ -756,10 +664,6 @@
 
     .detail-grid{
         grid-template-columns:1fr;
-    }
-
-    .order-detail-hero h1{
-        font-size:2.2rem;
     }
 
 }

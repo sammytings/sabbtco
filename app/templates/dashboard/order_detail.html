@@ -468,6 +468,115 @@
                 </div>
 
             </div>
+            <section class="tracking-progress-section">
+
+    <div class="container">
+
+        <div class="progress-card">
+
+            <h2>
+                Shipment Progress
+            </h2>
+
+            <div class="progress-wrapper">
+
+                <!-- Pending -->
+                <div class="progress-step
+                    {% if order.status == 'pending' or order.status == 'processing' or order.status == 'paid' or order.status == 'shipping' or order.status == 'arrived' or order.status == 'delivered' %}
+                    active
+                    {% endif %}
+                ">
+
+                    <div class="circle">
+                        ✓
+                    </div>
+
+                    <span>Pending</span>
+
+                </div>
+
+                <!-- Processing -->
+                <div class="progress-step
+                    {% if order.status == 'processing' or order.status == 'paid' or order.status == 'shipping' or order.status == 'arrived' or order.status == 'delivered' %}
+                    active
+                    {% endif %}
+                ">
+
+                    <div class="circle">
+                        ✓
+                    </div>
+
+                    <span>Processing</span>
+
+                </div>
+
+                <!-- Paid -->
+                <div class="progress-step
+                    {% if order.status == 'paid' or order.status == 'shipping' or order.status == 'arrived' or order.status == 'delivered' %}
+                    active
+                    {% endif %}
+                ">
+
+                    <div class="circle">
+                        ✓
+                    </div>
+
+                    <span>Paid</span>
+
+                </div>
+
+                <!-- Shipping -->
+                <div class="progress-step
+                    {% if order.status == 'shipping' or order.status == 'arrived' or order.status == 'delivered' %}
+                    active
+                    {% endif %}
+                ">
+
+                    <div class="circle">
+                        ✓
+                    </div>
+
+                    <span>Shipping</span>
+
+                </div>
+
+                <!-- Arrived -->
+                <div class="progress-step
+                    {% if order.status == 'arrived' or order.status == 'delivered' %}
+                    active
+                    {% endif %}
+                ">
+
+                    <div class="circle">
+                        ✓
+                    </div>
+
+                    <span>Arrived</span>
+
+                </div>
+
+                <!-- Delivered -->
+                <div class="progress-step
+                    {% if order.status == 'delivered' %}
+                    active
+                    {% endif %}
+                ">
+
+                    <div class="circle">
+                        ✓
+                    </div>
+
+                    <span>Delivered</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
         {% empty %}
 
@@ -490,6 +599,113 @@
 
 
 <style>
+    .tracking-progress-section{
+    margin-top:-40px;
+    position:relative;
+    z-index:10;
+}
+
+.progress-card{
+    background:white;
+    padding:2rem;
+    border-radius:24px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.progress-card h2{
+    margin-bottom:2rem;
+    color:var(--brand-navy);
+}
+
+.progress-wrapper{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:1rem;
+    flex-wrap:wrap;
+}
+
+.progress-step{
+    flex:1;
+    text-align:center;
+    position:relative;
+}
+
+.progress-step::after{
+    content:"";
+    position:absolute;
+    top:20px;
+    left:60%;
+    width:100%;
+    height:4px;
+    background:#e5e7eb;
+    z-index:1;
+}
+
+.progress-step:last-child::after{
+    display:none;
+}
+
+.circle{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:#e5e7eb;
+    color:#94a3b8;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto;
+    font-weight:700;
+    position:relative;
+    z-index:2;
+}
+
+.progress-step span{
+    display:block;
+    margin-top:.8rem;
+    font-size:.9rem;
+    color:#64748b;
+}
+
+.progress-step.active .circle{
+    background:var(--brand-red);
+    color:white;
+}
+
+.progress-step.active::after{
+    background:var(--brand-red);
+}
+
+.progress-step.active span{
+    color:var(--brand-navy);
+    font-weight:700;
+}
+
+@media(max-width:768px){
+
+    .progress-wrapper{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .progress-step{
+        width:100%;
+        text-align:left;
+        display:flex;
+        align-items:center;
+        gap:1rem;
+    }
+
+    .progress-step::after{
+        display:none;
+    }
+
+    .progress-step span{
+        margin-top:0;
+    }
+
+}
 
 .order-detail-hero{
     background:

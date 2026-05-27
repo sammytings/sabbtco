@@ -440,34 +440,77 @@ def dashboard(request):
         context
     )
 
-from django.shortcuts import get_object_or_404, redirect
+from .models import Order, OrderTimeline, PackagePhoto
 
 
 @staff_member_required
 def update_order(request, order_id):
 
-    order = get_object_or_404(Order, order_id=order_id)
+    order = get_object_or_404(
+        Order,
+        order_id=order_id
+    )
 
     if request.method == "POST":
 
+        # ORDER UPDATE
         order.status = request.POST.get("status")
 
-        order.tracking_number = request.POST.get("tracking")
+        order.tracking_number = request.POST.get(
+            "tracking_number"
+        )
+
+        order.amount = request.POST.get("amount")
+
+        order.notes = request.POST.get("notes")
 
         order.save()
 
-        return redirect("dashboard")
+        # TIMELINE UPDATE
+        timeline_title = request.POST.get(
+            "timeline_title"
+        )
 
-    context = {
+        timeline_description = request.POST.get(
+            "timeline_description"
+        )
 
-        "order": order
+        if timeline_title:
 
-    }
+            OrderTimeline.objects.create(
+                order=order,
+                title=timeline_title,
+                description=timeline_description
+            )
+
+        # PACKAGE PHOTO
+        package_image = request.FILES.get(
+            "package_image"
+        )
+
+        photo_caption = request.POST.get(
+            "photo_caption"
+        )
+
+        if package_image:
+
+            PackagePhoto.objects.create(
+                order=order,
+                image=package_image,
+                caption=photo_caption
+            )
+
+        return redirect(
+            "update_order",
+            order_id=order.order_id
+        )
 
     return render(
         request,
         "dashboard/update_order.html",
-        context
+        {
+            "order": order
+        }
     )
 
 from django.contrib.auth.decorators import login_required
@@ -518,8 +561,6 @@ from app.models import Order
 
 from django.shortcuts import render, get_object_or_404
 from .models import Order
-
-
 def order_detail(request, order_id):
 
     order = get_object_or_404(
@@ -529,9 +570,14 @@ def order_detail(request, order_id):
 
     photos = order.photos.all()
 
+    timeline = order.timeline.all()
+
     context = {
+
         "order": order,
         "photos": photos,
+        "timeline": timeline
+
     }
 
     return render(
@@ -539,6 +585,7 @@ def order_detail(request, order_id):
         "order_detail.html",
         context
     )
+
 
 from django.shortcuts import get_object_or_404, redirect
 from .models import Order, Document
@@ -557,4 +604,4 @@ def upload_document(request, order_id):
                 file=file
             )
 
-    return redirect("order_detail", order_id=order.id)
+    return redirect("order_detail", order_id=order.order_id)

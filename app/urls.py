@@ -21,8 +21,13 @@ urlpatterns = [
     views.order_detail,
     name="order_detail"
 ),
-    path("dashboard/order/<int:order_id>/", views.update_order, name="update_order"),
+path(
+    "dashboard/order/<str:order_id>/",
+    views.update_order,
+    name="update_order"
+),
     
-path("order/<int:order_id>/upload/", views.upload_document, name="upload_document"),
+    
+path("order/<str:order_id>/upload/", views.upload_document, name="upload_document"),
     
 ]
